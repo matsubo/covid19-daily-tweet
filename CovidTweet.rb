@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
+# Make a tweet of today's report.
 class CovidTweet
-
   require 'net/http'
   require 'active_support/all'
 
@@ -109,7 +109,7 @@ class CovidTweet
   # リクエスト、ツイートする
   def request_and_tweet(area, base_day)
     # 設定を取得
-    name = area.first
+    prefecture = area.first
     area_prop = area[1]
     url = area_prop['csv']
     twitter = area_prop['twitter']
@@ -117,12 +117,12 @@ class CovidTweet
     date_format = area_prop['date']
 
     # 終日回す
-    @logger.info("start thread for area: #{name}")
+    @logger.info("start thread for area: #{prefecture}")
     loop do
-      @logger.info("[#{name}] run at time:" + Time.now.to_s)
+      @logger.info("[#{prefecture}] run at time:" + Time.now.to_s)
 
       # 一時保存用ファイル名設定
-      file_name = name + Time.now.strftime('%Y%m%d%H%M%S') + '.csv'
+      file_name = prefecture + Time.now.strftime('%Y%m%d%H%M%S') + '.csv'
       file_path = ''
 
       Retriable.retriable do
@@ -136,8 +136,8 @@ class CovidTweet
       next_run_wait_seconds = 60 * 60
 
       # 基準日のデータが存在する場合、ツイートする
-      if results[:base_day_count] > 0 && results[:prev_day_count] > 0
-        @logger.info("[#{name}] end today run at time:" + Time.now.to_s)
+      if results[:base_day_count].positive? && results[:prev_day_count].positive?
+        @logger.info("[#{prefecture}] end today run at time:" + Time.now.to_s)
 
         # 次回は翌日の8時から実行する
         next_run_wait_seconds = 1.day.since.midnight + 8.hour - Time.now.to_i
@@ -150,7 +150,7 @@ class CovidTweet
 
         tweet(message, twitter)
 
-        file_name = name + Time.now.strftime('%Y%m%d') + '.csv'
+        file_name = prefecture + Time.now.strftime('%Y%m%d') + '.csv'
 
         # ファイルが存在する場合は名前を変更する
         File.rename(file_path, File.join(DOWNLOAD_DIR, file_name)) if File.exist?(file_path)
@@ -159,7 +159,7 @@ class CovidTweet
         File.delete(file_path) if File.exist?(file_path)
       end
 
-      @logger.info("[#{name}] wait seconds for next run:" + next_run_wait_seconds.to_s)
+      @logger.info("[#{prefecture}] wait seconds for next run:" + next_run_wait_seconds.to_s)
       sleep(next_run_wait_seconds)
     end
   end
