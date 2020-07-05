@@ -4,4 +4,13 @@ services:
     image: ruby:2.7
     volumes:
       - .:/app
-
+    stdin_open: true
+    tty: true
+    tmpfs:
+      - /tmp
+    working_dir: '/app'
+    volumes:
+      - bundle:/usr/local/bundle
+      - .:/app
+volumes:
+  bundle:
