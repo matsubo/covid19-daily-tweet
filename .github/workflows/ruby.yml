@@ -30,3 +30,7 @@ jobs:
       run: bundle install
     - name: Run tests
       run: bundle exec rubocop
+    - name: Run tests
+      run: bundle exec rspec
+      env:
+        TEST: true

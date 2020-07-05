@@ -9,7 +9,7 @@ class CovidTweet
 
   def initialize
     require 'logger'
-    @logger = Logger.new(STDOUT)
+    @logger = Logger.new((STDOUT unless ENV['TEST']))
   end
 
   def main_exec(base_day)
