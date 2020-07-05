@@ -8,3 +8,5 @@ gem 'thread'
 gem 'twitter'
 gem 'yaml'
 
+gem 'rubocop', require: false
+

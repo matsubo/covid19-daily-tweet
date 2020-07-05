@@ -3,6 +3,7 @@ GEM
   specs:
     addressable (2.7.0)
       public_suffix (>= 2.0.2, < 5.0)
+    ast (2.4.1)
     buftok (0.2.0)
     csv (3.1.5)
     domain_name (0.5.20190701)
@@ -27,8 +28,26 @@ GEM
       thread_safe (~> 0.3, >= 0.3.1)
     multipart-post (2.1.1)
     naught (1.1.0)
+    parallel (1.19.2)
+    parser (2.7.1.4)
+      ast (~> 2.4.1)
     public_suffix (4.0.5)
+    rainbow (3.0.0)
     rake (13.0.1)
+    regexp_parser (1.7.1)
+    rexml (3.2.4)
+    rubocop (0.86.0)
+      parallel (~> 1.10)
+      parser (>= 2.7.0.1)
+      rainbow (>= 2.2.2, < 4.0)
+      regexp_parser (>= 1.7)
+      rexml
+      rubocop-ast (>= 0.0.3, < 1.0)
+      ruby-progressbar (~> 1.7)
+      unicode-display_width (>= 1.4.0, < 2.0)
+    rubocop-ast (0.1.0)
+      parser (>= 2.7.0.1)
+    ruby-progressbar (1.10.1)
     simple_oauth (0.3.1)
     thread (0.2.2)
     thread_safe (0.3.6)
@@ -46,6 +65,7 @@ GEM
     unf (0.1.4)
       unf_ext
     unf_ext (0.0.7.7)
+    unicode-display_width (1.7.0)
     yaml (0.1.0)
 
 PLATFORMS
@@ -53,6 +73,7 @@ PLATFORMS
 
 DEPENDENCIES
   csv
+  rubocop
   thread
   twitter
   yaml
