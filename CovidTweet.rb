@@ -12,7 +12,6 @@ class CovidTweet
 
   def main_exec(base_day)
     # 設定を読み込む
-    one_at_a_time = Mutex.new
     file_name = 'settings.yaml'
     yaml = load_settings(file_name)
 
@@ -21,7 +20,7 @@ class CovidTweet
     threads = []
     accounts.each do |area|
       threads << Thread.new do
-        request_and_tweet(area, base_day, one_at_a_time)
+        request_and_tweet(area, base_day)
       end
     end
 
@@ -33,11 +32,7 @@ class CovidTweet
   def load_settings(file_name)
     yaml = YAML.load_file(file_name)
 
-    if yaml.class == FalseClass || !yaml.key?('accounts') || yaml['accounts'].nil? || yaml['accounts'].empty?
-      @logger.error('accounts is not defined.')
-      @logger.error('please confirm file settings.yaml.')
-      return nil
-    end
+    raise 'YAML setting is invalid' if !yaml.key?('accounts') || yaml['accounts'].nil? || yaml['accounts'].empty?
 
     accounts = yaml['accounts']
 
@@ -102,10 +97,9 @@ class CovidTweet
 
   # ファイルをダウンロードする
   def download(url, file_name)
-
     download_url = url
     # HTTP定義を行う
-    download_uri = uri = URI.parse(download_url)
+    download_uri = URI.parse(download_url)
     http = Net::HTTP.new(download_uri.host, download_uri.port)
     http.use_ssl = true
     req = Net::HTTP::Get.new(download_uri.path)
@@ -157,7 +151,10 @@ class CovidTweet
       end
     end
     @logger.info("analyze csv file end: #{base_day_count}, #{prev_day_count}")
-    [base_day_count, prev_day_count]
+    {
+      base_day_count: base_day_count,
+      prev_day_count: prev_day_count
+    }
   end
 
   # ツイートする
@@ -177,7 +174,7 @@ class CovidTweet
   end
 
   # リクエスト、ツイートする
-  def request_and_tweet(area, base_day, lock_obj)
+  def request_and_tweet(area, base_day)
     # 設定を取得
     name = area.first
     area_prop = area[1]
@@ -185,6 +182,7 @@ class CovidTweet
     twitter = area_prop['twitter']
     column_index = area_prop['column'].to_i
     date_format = area_prop['date']
+
     # 終日回す
     @logger.info("start thread for area: #{name}")
     loop do
@@ -206,23 +204,23 @@ class CovidTweet
       next_run_wait_seconds = 3600
 
       # 基準日のデータが存在する場合、ツイートする
-      if !results.nil? && results.length == 2 && !results[0].nil? && !results[1].nil? && results[0] > 0 && results[1] > 0
+      if results[:base_day_count] > 0 && results[:prev_day_count] > 0
         @logger.info("[#{name}] end today run at time:" + Time.now.to_s)
         # 次回は翌日の8時から実行する
         next_run_wait_seconds = Date.today.next_day.to_time.to_i + 8 * 3600 - Time.now.to_i
         signal = '+'
-        added_count = results[0] - results[1]
-        percent = (added_count * 100 / results[1]).to_i.to_s + '%'
-        signal = '' if added_count < 0
-        message = format('「本日の新規陽性者数は%s人です。（前日比 %s%s人,%s%s）」', results[0], signal, added_count, signal, percent)
+        diff = results[:base_day_count] - results[:prev_day_count]
+        percent = (diff * 100 / results[:prev_day_count]).to_i.to_s + '%'
+        signal = '' if diff == 0
+        message = format('「本日の新規陽性者数は%s人です。（前日比 %s%s人,%s%s）」', results[0], signal, diff, signal, percent)
         @logger.info(message)
-        lock_obj.synchronize do
-          tweet(message, twitter)
-          sleep 5
-        end
+
+        tweet(message, twitter)
+
         file_name = name + Time.now.strftime('%Y%m%d') + '.csv'
+
         # ファイルが存在する場合は名前を変更する
-        File.rename(file_path, download_path + file_name) if File.exist?(file_path)
+        File.rename(file_path, File.join(DOWNLOAD_DIR, file_name)) if File.exist?(file_path)
       else
         # ファイルが存在する場合は削除する
         File.delete(file_path) if File.exist?(file_path)

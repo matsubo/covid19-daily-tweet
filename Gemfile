@@ -7,5 +7,7 @@ gem 'csv'
 gem 'thread'
 gem 'twitter'
 gem 'yaml'
+gem 'retriable'
 
 gem 'rubocop', require: false
+gem 'pry-byebug', require: false
