@@ -93,15 +93,11 @@ class CovidTweet
 
   # ツイートする
   def tweet(message, twitter)
-    consumer_key = twitter['consumer_key']
-    consumer_secret = twitter['consumer_secret']
-    access_token = twitter['access_token']
-    access_token_secret = twitter['access_token_secret']
     client = Twitter::REST::Client.new do |config|
-      config.consumer_key = consumer_key
-      config.consumer_secret = consumer_secret
-      config.access_token = access_token
-      config.access_token_secret = access_token_secret
+      config.consumer_key = twitter['consumer_key']
+      config.consumer_secret = twitter['consumer_secret']
+      config.access_token = twitter['access_token']
+      config.access_token_secret = twitter['access_token_secret']
     end
     client.update(message)
   end
@@ -146,7 +142,7 @@ class CovidTweet
 
         signal = get_signal(diff)
 
-        message = format('「本日の新規陽性者数は%s人です。（前日比 %s%s人,%s%s）」 #covid19 #%s', results[:base_day_count], signal, diff.abs, signal, percent, prefecture)
+        message = format('本日の新規陽性者数は%s人です。（前日比 %s%s人,%s%s） #covid19 #%s', results[:base_day_count], signal, diff.abs, signal, percent, prefecture)
 
         @logger.info(message)
 
@@ -168,11 +164,11 @@ class CovidTweet
 
   def get_signal(diff)
     if diff > 0
-      return '+'
-    elsif  diff < 0
-      return '-'
+      '+'
+    elsif diff < 0
+      '-'
     else
-      return ''
+      ''
     end
   end
 end
