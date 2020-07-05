@@ -140,12 +140,14 @@ class CovidTweet
         @logger.info("[#{prefecture}] end today run at time:" + Time.now.to_s)
 
         # 次回は翌日の8時から実行する
-        next_run_wait_seconds = 1.day.since.midnight + 8.hour - Time.now.to_i
-        signal = '+'
+        next_run_wait_seconds = (1.day.since.midnight + 8.hour).to_i - Time.now.to_i
         diff = results[:base_day_count] - results[:prev_day_count]
         percent = (diff * 100 / results[:prev_day_count]).abs.to_i.to_s + '%'
-        signal = '-' if diff < 0
-        message = format('「本日の新規陽性者数は%s人です。（前日比 %s%s人,%s%s）」', results[:base_day_count], signal, diff, signal, percent)
+
+        signal = get_signal(diff)
+
+        message = format('「本日の新規陽性者数は%s人です。（前日比 %s%s人,%s%s）」 #covid19 #%s', results[:base_day_count], signal, diff.abs, signal, percent, prefecture)
+
         @logger.info(message)
 
         tweet(message, twitter)
@@ -161,6 +163,16 @@ class CovidTweet
 
       @logger.info("[#{prefecture}] wait seconds for next run:" + next_run_wait_seconds.to_s)
       sleep(next_run_wait_seconds)
+    end
+  end
+
+  def get_signal(diff)
+    if diff > 0
+      return '+'
+    elsif  diff < 0
+      return '-'
+    else
+      return ''
     end
   end
 end
