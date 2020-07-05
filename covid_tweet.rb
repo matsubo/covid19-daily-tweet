@@ -71,7 +71,7 @@ class CovidTweet
     base_day_count = 0
 
     actualy_col_index = column_index - 1
-    CSV.foreach(csv_path) do |row|
+    CSV.foreach(csv_path, encoding: 'BOM|UTF-8') do |row|
       # 1行ずつ取得する
       if row.length > column_index
         row_date = row[actualy_col_index].strip
