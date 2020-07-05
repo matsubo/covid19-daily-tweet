@@ -1,7 +1,9 @@
 # frozen_string_literal: true
 
-class ConvidTweet
+class CovidTweet
   require 'net/http'
+
+  DOWNLOAD_DIR = 'downloads'
 
   def initialize
     require 'logger'
@@ -11,7 +13,6 @@ class ConvidTweet
   def main_exec(base_day)
     # 設定を読み込む
     one_at_a_time = Mutex.new
-    download_path = 'downloads/'
     file_name = 'settings.yaml'
     yaml = load_settings(file_name)
 
@@ -20,7 +21,7 @@ class ConvidTweet
     threads = []
     accounts.each do |area|
       threads << Thread.new do
-        request_and_tweet(area, base_day, one_at_a_time, download_path)
+        request_and_tweet(area, base_day, one_at_a_time)
       end
     end
 
@@ -97,14 +98,11 @@ class ConvidTweet
     end
 
     yaml
-  rescue StandardError => e
-    @logger.error('error happend when reading yaml.error detail is following:')
-    @logger.error(e)
-    nil
   end
 
   # ファイルをダウンロードする
-  def download(url, download_path, file_name)
+  def download(url, file_name)
+
     download_url = url
     # HTTP定義を行う
     download_uri = uri = URI.parse(download_url)
@@ -118,22 +116,17 @@ class ConvidTweet
     response = http.request(req)
 
     # 保存先パスを定義
-    file_path = download_path + file_name
+    file_path = File.join(DOWNLOAD_DIR, file_name)
+
     # ファイルが存在する場合は削除する
     File.delete(file_path) if File.exist?(file_path)
+
     # ファイルを保存する
-    open(file_path, 'wb') do |file|
-      file.write(response.body)
-    end
+    File.write(file_path, response.body)
 
     @logger.info("downloaded url : #{download_url}")
 
     file_path
-  rescue StandardError => e
-    @logger.error("error happened when downloading url: #{url}")
-    @logger.error('please confirm following excetion message:')
-    @logger.error(e)
-    nil
   end
 
   # CSVファイルを読み込み、基準日と前日の人数を取得する
@@ -165,11 +158,6 @@ class ConvidTweet
     end
     @logger.info("analyze csv file end: #{base_day_count}, #{prev_day_count}")
     [base_day_count, prev_day_count]
-  rescue StandardError => e
-    @logger.error("error happened when analyze csv file: #{csv_path}")
-    @logger.error('please confirm following exception message:')
-    @logger.error(e)
-    [nil, nil]
   end
 
   # ツイートする
@@ -186,14 +174,10 @@ class ConvidTweet
     end
     client.update(message)
     true
-  rescue StandardError => e
-    @logger.error('error happend when tweet.error detail is following:')
-    @logger.error(e)
-    false
   end
 
   # リクエスト、ツイートする
-  def request_and_tweet(area, base_day, lock_obj, download_path)
+  def request_and_tweet(area, base_day, lock_obj)
     # 設定を取得
     name = area.first
     area_prop = area[1]
@@ -211,10 +195,8 @@ class ConvidTweet
       file_name = name + Time.now.strftime('%Y%m%d%H%M%S') + '.csv'
       file_path = ''
 
-      3.times do
-        # 3回ダウンロードを試す
-        file_path = download(url, download_path, file_name)
-        break unless file_path.nil?
+      Retriable.retriable do
+        file_path = download(url, file_name)
       end
 
       # CSVファイルを分析
