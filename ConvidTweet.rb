@@ -89,9 +89,7 @@ class ConvidTweet
         @logger.error('please confirm file settings.yaml.')
         return nil
       end
-      unless !twitter.key?('access_token_secret') || twitter['access_token_secret'].nil?
-        next
-            end
+      next unless !twitter.key?('access_token_secret') || twitter['access_token_secret'].nil?
 
       @logger.error("twitter access_token_secret for area #{area_name} not defined.")
       @logger.error('please confirm file settings.yaml.')
@@ -99,7 +97,7 @@ class ConvidTweet
     end
 
     yaml
-  rescue Exception => e
+  rescue StandardError => e
     @logger.error('error happend when reading yaml.error detail is following:')
     @logger.error(e)
     nil
@@ -131,7 +129,7 @@ class ConvidTweet
     @logger.info("downloaded url : #{download_url}")
 
     file_path
-  rescue Exception => e
+  rescue StandardError => e
     @logger.error("error happened when downloading url: #{url}")
     @logger.error('please confirm following excetion message:')
     @logger.error(e)
@@ -167,7 +165,7 @@ class ConvidTweet
     end
     @logger.info("analyze csv file end: #{base_day_count}, #{prev_day_count}")
     [base_day_count, prev_day_count]
-  rescue Exception => e
+  rescue StandardError => e
     @logger.error("error happened when analyze csv file: #{csv_path}")
     @logger.error('please confirm following exception message:')
     @logger.error(e)
@@ -188,7 +186,7 @@ class ConvidTweet
     end
     client.update(message)
     true
-  rescue Exception => e
+  rescue StandardError => e
     @logger.error('error happend when tweet.error detail is following:')
     @logger.error(e)
     false
@@ -242,9 +240,7 @@ class ConvidTweet
         end
         file_name = name + Time.now.strftime('%Y%m%d') + '.csv'
         # ファイルが存在する場合は名前を変更する
-        if File.exist?(file_path)
-          File.rename(file_path, download_path + file_name)
-        end
+        File.rename(file_path, download_path + file_name) if File.exist?(file_path)
       else
         # ファイルが存在する場合は削除する
         File.delete(file_path) if File.exist?(file_path)
