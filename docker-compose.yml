@@ -14,5 +14,6 @@ services:
       - .:/app
     environment:
       - TZ=Asia/Tokyo
+    command: 'bundle exec ruby main.rb'
 volumes:
   bundle:
