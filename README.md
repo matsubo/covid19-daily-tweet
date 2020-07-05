@@ -1,5 +1,7 @@
 # CovidTweet
 
+![Ruby](https://github.com/matsubo/covid19-daily-tweet/workflows/Ruby/badge.svg)
+
 ## Setup
 
 ```
