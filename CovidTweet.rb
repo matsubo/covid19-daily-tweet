@@ -14,8 +14,7 @@ class CovidTweet
 
   def main_exec(base_day)
     # 設定を読み込む
-    file_name = 'settings.yaml'
-    yaml = load_settings(file_name)
+    yaml = YAML.load_file('settings.yaml')
 
     accounts = yaml['accounts']
 
@@ -28,73 +27,6 @@ class CovidTweet
 
     # 全てのスレッドを待つ
     threads.each(&:join)
-  end
-
-  # 設定を読み込む
-  def load_settings(file_name)
-    yaml = YAML.load_file(file_name)
-
-    raise 'YAML setting is invalid' if !yaml.key?('accounts') || yaml['accounts'].nil? || yaml['accounts'].empty?
-
-    accounts = yaml['accounts']
-
-    accounts.each do |area|
-      if area.nil? || area.first == '' || area.length < 2
-        @logger.error('area not defined or not completely defined.')
-        @logger.error('please confirm file settings.yaml.')
-        return nil
-      end
-      area_name = area.first
-      area_prop = area[1]
-      if area_prop.nil?
-        @logger.error("area property for #{area_name} not defined.")
-        @logger.error('please confirm file settings.yaml.')
-        return nil
-      end
-      if !area_prop.key?('csv') || area_prop['csv'].nil? || area_prop['csv'] == ''
-        @logger.error("csv location for area #{area_name} not defined.")
-        @logger.error('please confirm file settings.yaml.')
-        return nil
-      end
-      if !area_prop.key?('twitter') || area_prop['twitter'].nil?
-        @logger.error("twitter for area #{area_name} not defined.")
-        @logger.error('please confirm file settings.yaml.')
-        return nil
-      end
-      if !area_prop.key?('date') || area_prop['date'].nil?
-        @logger.error("date for area #{area_name} not defined.")
-        @logger.error('please confirm file settings.yaml.')
-        return nil
-      end
-      if !area_prop.key?('column') || area_prop['column'].nil?
-        @logger.error("column for area #{area_name} not defined.")
-        @logger.error('please confirm file settings.yaml.')
-        return nil
-      end
-      twitter = area_prop['twitter']
-      if !twitter.key?('consumer_key') || twitter['consumer_key'].nil?
-        @logger.error("twitter consumer_key for area #{area_name} not defined.")
-        @logger.error('please confirm file settings.yaml.')
-        return nil
-      end
-      if !twitter.key?('consumer_secret') || twitter['consumer_secret'].nil?
-        @logger.error("twitter consumer_secret for area #{area_name} not defined.")
-        @logger.error('please confirm file settings.yaml.')
-        return nil
-      end
-      if !twitter.key?('access_token') || twitter['access_token'].nil?
-        @logger.error("twitter access_token for area #{area_name} not defined.")
-        @logger.error('please confirm file settings.yaml.')
-        return nil
-      end
-      next unless !twitter.key?('access_token_secret') || twitter['access_token_secret'].nil?
-
-      @logger.error("twitter access_token_secret for area #{area_name} not defined.")
-      @logger.error('please confirm file settings.yaml.')
-      return nil
-    end
-
-    yaml
   end
 
   # ファイルをダウンロードする
@@ -172,7 +104,6 @@ class CovidTweet
       config.access_token_secret = access_token_secret
     end
     client.update(message)
-    true
   end
 
   # リクエスト、ツイートする
