@@ -1,7 +1,9 @@
 # frozen_string_literal: true
 
 class CovidTweet
+
   require 'net/http'
+  require 'active_support/all'
 
   DOWNLOAD_DIR = 'downloads'
 
@@ -186,7 +188,6 @@ class CovidTweet
     # 終日回す
     @logger.info("start thread for area: #{name}")
     loop do
-      start_time = Time.now.to_i
       @logger.info("[#{name}] run at time:" + Time.now.to_s)
 
       # 一時保存用ファイル名設定
@@ -201,18 +202,19 @@ class CovidTweet
       results = analyze_csv(file_path, column_index, base_day, date_format)
 
       # 基準日データが存在しない場合、1時間以降に起動する
-      next_run_wait_seconds = 3600
+      next_run_wait_seconds = 60 * 60
 
       # 基準日のデータが存在する場合、ツイートする
       if results[:base_day_count] > 0 && results[:prev_day_count] > 0
         @logger.info("[#{name}] end today run at time:" + Time.now.to_s)
+
         # 次回は翌日の8時から実行する
-        next_run_wait_seconds = Date.today.next_day.to_time.to_i + 8 * 3600 - Time.now.to_i
+        next_run_wait_seconds = 1.day.since.midnight + 8.hour - Time.now.to_i
         signal = '+'
         diff = results[:base_day_count] - results[:prev_day_count]
         percent = (diff * 100 / results[:prev_day_count]).to_i.to_s + '%'
         signal = '' if diff == 0
-        message = format('「本日の新規陽性者数は%s人です。（前日比 %s%s人,%s%s）」', results[0], signal, diff, signal, percent)
+        message = format('「本日の新規陽性者数は%s人です。（前日比 %s%s人,%s%s）」', results[:base_day_count], signal, diff, signal, percent)
         @logger.info(message)
 
         tweet(message, twitter)
@@ -226,9 +228,8 @@ class CovidTweet
         File.delete(file_path) if File.exist?(file_path)
       end
 
-      wait_seconds = start_time + next_run_wait_seconds - Time.now.to_i
-      @logger.info("[#{name}] wait seconds for next run:" + wait_seconds.to_s)
-      sleep(wait_seconds) if wait_seconds > 0
+      @logger.info("[#{name}] wait seconds for next run:" + next_run_wait_seconds.to_s)
+      sleep(next_run_wait_seconds)
     end
   end
 end

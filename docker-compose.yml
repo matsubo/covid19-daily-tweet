@@ -12,5 +12,7 @@ services:
     volumes:
       - bundle:/usr/local/bundle
       - .:/app
+    environment:
+      - TZ=Asia/Tokyo
 volumes:
   bundle:

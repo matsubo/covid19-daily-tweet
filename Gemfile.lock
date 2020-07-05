@@ -1,12 +1,19 @@
 GEM
   remote: https://rubygems.org/
   specs:
+    activesupport (6.0.3.2)
+      concurrent-ruby (~> 1.0, >= 1.0.2)
+      i18n (>= 0.7, < 2)
+      minitest (~> 5.1)
+      tzinfo (~> 1.1)
+      zeitwerk (~> 2.2, >= 2.2.2)
     addressable (2.7.0)
       public_suffix (>= 2.0.2, < 5.0)
     ast (2.4.1)
     buftok (0.2.0)
     byebug (11.1.3)
     coderay (1.1.3)
+    concurrent-ruby (1.1.6)
     csv (3.1.5)
     domain_name (0.5.20190701)
       unf (>= 0.0.5, < 1.0.0)
@@ -26,9 +33,12 @@ GEM
     http-parser (1.2.1)
       ffi-compiler (>= 1.0, < 2.0)
     http_parser.rb (0.6.0)
+    i18n (1.8.3)
+      concurrent-ruby (~> 1.0)
     memoizable (0.4.2)
       thread_safe (~> 0.3, >= 0.3.1)
     method_source (1.0.0)
+    minitest (5.14.1)
     multipart-post (2.1.1)
     naught (1.1.0)
     parallel (1.19.2)
@@ -72,16 +82,20 @@ GEM
       multipart-post (~> 2.0)
       naught (~> 1.0)
       simple_oauth (~> 0.3.0)
+    tzinfo (1.2.7)
+      thread_safe (~> 0.1)
     unf (0.1.4)
       unf_ext
     unf_ext (0.0.7.7)
     unicode-display_width (1.7.0)
     yaml (0.1.0)
+    zeitwerk (2.3.1)
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
+  activesupport
   csv
   pry-byebug
   retriable
