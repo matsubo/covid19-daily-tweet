@@ -129,13 +129,13 @@ class CovidTweet
         file_path = download(url, file_name)
       end
 
-      # CSVファイルを分析
+      # Check the today's data is updated
       results = analyze_csv(file_path, column_index, base_day, date_format)
 
-      # 基準日データが存在しない場合、1時間以降に起動する
-      next_run_wait_seconds = 60 * 60
+      # Wait for a while until next check
+      next_run_wait_seconds = 30.minutes.to_i
 
-      # 基準日のデータが存在する場合、ツイートする
+      # Tweet if today's data is updated.
       if results[:base_day_count].positive? && results[:prev_day_count].positive?
         @logger.info("[#{prefecture}] end today run at time:" + Time.now.to_s)
 
