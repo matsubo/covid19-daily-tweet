@@ -143,8 +143,8 @@ class CovidTweet
         next_run_wait_seconds = 1.day.since.midnight + 8.hour - Time.now.to_i
         signal = '+'
         diff = results[:base_day_count] - results[:prev_day_count]
-        percent = (diff * 100 / results[:prev_day_count]).to_i.to_s + '%'
-        signal = '' if diff == 0
+        percent = (diff * 100 / results[:prev_day_count]).abs.to_i.to_s + '%'
+        signal = '-' if diff < 0
         message = format('「本日の新規陽性者数は%s人です。（前日比 %s%s人,%s%s）」', results[:base_day_count], signal, diff, signal, percent)
         @logger.info(message)
 
