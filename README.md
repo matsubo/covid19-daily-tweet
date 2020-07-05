@@ -21,4 +21,9 @@ Damon in background
 ```
 
 
+## Test
+
+```
+% docker-compose run -e TEST=true app bundle exec rspec
+```
 
