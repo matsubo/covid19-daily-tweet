@@ -4,7 +4,7 @@ require './covid_tweet_process.rb'
 
 # Make a tweet of today's report.
 class CovidTweet
-  def main_exec
+  def main
     # 設定を読み込む
     yaml = YAML.load_file('settings.yaml')
 
