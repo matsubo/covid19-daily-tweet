@@ -4,4 +4,4 @@ require 'bundler/setup'
 Bundler.require
 
 require './covid_tweet.rb'
-puts CovidTweet.new.main_exec(Date.today)
+puts CovidTweet.new.main_exec
