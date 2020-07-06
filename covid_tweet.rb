@@ -29,80 +29,6 @@ class CovidTweet
     threads.each(&:join)
   end
 
-  # ファイルをダウンロードする
-  def download(url, file_name)
-    download_url = url
-    # HTTP定義を行う
-    download_uri = URI.parse(download_url)
-    http = Net::HTTP.new(download_uri.host, download_uri.port)
-    http.use_ssl = true
-    req = Net::HTTP::Get.new(download_uri.path)
-
-    @logger.info("downloading url : #{download_url}")
-
-    # ダウンロードをリクエストする
-    response = http.request(req)
-
-    # 保存先パスを定義
-    file_path = File.join(DOWNLOAD_DIR, file_name)
-
-    # ファイルが存在する場合は削除する
-    File.delete(file_path) if File.exist?(file_path)
-
-    # ファイルを保存する
-    File.write(file_path, response.body)
-
-    @logger.info("downloaded url : #{download_url}")
-
-    file_path
-  end
-
-  # CSVファイルを読み込み、基準日と前日の人数を取得する
-  def analyze_csv(csv_path, column_index, base_date, date_format, encoding)
-
-    # get date formatted
-    base_date_str = base_date.strftime(date_format)
-    # get previous date
-    prev_day = base_date.prev_day
-    prev_day_str = prev_day.strftime(date_format)
-
-    @logger.info("analyze csv file with date: #{base_date_str} and #{prev_day_str}")
-
-    prev_day_count = 0
-    base_day_count = 0
-
-    actualy_col_index = column_index - 1
-    CSV.foreach(csv_path, encoding: encoding) do |row|
-      # 1行ずつ取得する
-      if row.length > column_index
-        row_date = row[actualy_col_index].strip
-        if row_date == base_date_str
-          # 基準日と同じの場合
-          base_day_count += 1
-        elsif row_date == prev_day_str
-          # 前日と同じの場合
-          prev_day_count += 1
-        end
-      end
-    end
-    @logger.info("analyze csv file end: #{base_day_count}, #{prev_day_count}")
-    {
-      base_day_count: base_day_count,
-      prev_day_count: prev_day_count
-    }
-  end
-
-  # ツイートする
-  def tweet(message, twitter)
-    client = Twitter::REST::Client.new do |config|
-      config.consumer_key = twitter['consumer_key']
-      config.consumer_secret = twitter['consumer_secret']
-      config.access_token = twitter['access_token']
-      config.access_token_secret = twitter['access_token_secret']
-    end
-    client.update(message)
-  end
-
   # リクエスト、ツイートする
   def request_and_tweet(account, base_day)
     # 設定を取得
@@ -174,6 +100,80 @@ class CovidTweet
   end
 
   private
+
+  # ファイルをダウンロードする
+  def download(url, file_name)
+    download_url = url
+    # HTTP定義を行う
+    download_uri = URI.parse(download_url)
+    http = Net::HTTP.new(download_uri.host, download_uri.port)
+    http.use_ssl = true
+    req = Net::HTTP::Get.new(download_uri.path)
+
+    @logger.info("downloading url : #{download_url}")
+
+    # ダウンロードをリクエストする
+    response = http.request(req)
+
+    # 保存先パスを定義
+    file_path = File.join(DOWNLOAD_DIR, file_name)
+
+    # ファイルが存在する場合は削除する
+    File.delete(file_path) if File.exist?(file_path)
+
+    # ファイルを保存する
+    File.write(file_path, response.body)
+
+    @logger.info("downloaded url : #{download_url}")
+
+    file_path
+  end
+
+  # CSVファイルを読み込み、基準日と前日の人数を取得する
+  def analyze_csv(csv_path, column_index, base_date, date_format, encoding)
+    # get date formatted
+    base_date_str = base_date.strftime(date_format)
+    # get previous date
+    prev_day = base_date.prev_day
+    prev_day_str = prev_day.strftime(date_format)
+
+    @logger.info("analyze csv file with date: #{base_date_str} and #{prev_day_str}")
+
+    prev_day_count = 0
+    base_day_count = 0
+
+    actualy_col_index = column_index - 1
+    CSV.foreach(csv_path, encoding: encoding) do |row|
+      # 1行ずつ取得する
+      if row.length > column_index
+        row_date = row[actualy_col_index].strip
+        if row_date == base_date_str
+          # 基準日と同じの場合
+          base_day_count += 1
+        elsif row_date == prev_day_str
+          # 前日と同じの場合
+          prev_day_count += 1
+        end
+      end
+    end
+    @logger.info("analyze csv file end: #{base_day_count}, #{prev_day_count}")
+    {
+      base_day_count: base_day_count,
+      prev_day_count: prev_day_count
+    }
+  end
+
+  # ツイートする
+  def tweet(message, twitter)
+    client = Twitter::REST::Client.new do |config|
+      config.consumer_key = twitter['consumer_key']
+      config.consumer_secret = twitter['consumer_secret']
+      config.access_token = twitter['access_token']
+      config.access_token_secret = twitter['access_token_secret']
+    end
+    client.update(message)
+  end
+
 
   def get_todays_filename(prefecture)
     prefecture + Time.now.strftime('%Y%m%d') + '.csv'

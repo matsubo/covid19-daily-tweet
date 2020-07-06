@@ -8,7 +8,7 @@ RSpec.describe CovidTweet do
     let(:file_name) { 'test.csv' }
     it 'returns 0 for an all gutter game' do
       covid_tweet = CovidTweet.new
-      expect { covid_tweet.download(url, file_name) }.not_to raise_error
+      expect { covid_tweet.send(:download, url, file_name) }.not_to raise_error
     end
   end
 end
