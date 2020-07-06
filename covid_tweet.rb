@@ -19,9 +19,9 @@ class CovidTweet
     accounts = yaml['accounts']
 
     threads = []
-    accounts.each do |area|
+    accounts.each do |account|
       threads << Thread.new do
-        request_and_tweet(area, base_day)
+        request_and_tweet(account, base_day)
       end
     end
 
@@ -58,7 +58,8 @@ class CovidTweet
   end
 
   # CSVファイルを読み込み、基準日と前日の人数を取得する
-  def analyze_csv(csv_path, column_index, base_date, date_format)
+  def analyze_csv(csv_path, column_index, base_date, date_format, encoding)
+
     # get date formatted
     base_date_str = base_date.strftime(date_format)
     # get previous date
@@ -71,7 +72,7 @@ class CovidTweet
     base_day_count = 0
 
     actualy_col_index = column_index - 1
-    CSV.foreach(csv_path, encoding: 'BOM|UTF-8') do |row|
+    CSV.foreach(csv_path, encoding: encoding) do |row|
       # 1行ずつ取得する
       if row.length > column_index
         row_date = row[actualy_col_index].strip
@@ -103,14 +104,17 @@ class CovidTweet
   end
 
   # リクエスト、ツイートする
-  def request_and_tweet(area, base_day)
+  def request_and_tweet(account, base_day)
     # 設定を取得
-    prefecture = area.first
-    area_prop = area[1]
-    url = area_prop['csv']
-    twitter = area_prop['twitter']
-    column_index = area_prop['column'].to_i
-    date_format = area_prop['date']
+    prefecture = account['prefecture']
+    url = account['csv']
+    twitter = account['twitter']
+    column_index = account['column'].to_i
+    date_format = account['date']
+    encoding = account['encoding']
+
+    puts prefecture
+    puts account
 
     # 終日回す
     @logger.info("start thread for area: #{prefecture}")
@@ -118,15 +122,14 @@ class CovidTweet
       @logger.info("[#{prefecture}] run at time:" + Time.now.to_s)
 
       # 一時保存用ファイル名設定
-      file_name = prefecture + Time.now.strftime('%Y%m%d%H%M%S') + '.csv'
       file_path = ''
 
       Retriable.retriable do
-        file_path = download(url, file_name)
+        file_path = download(url, get_todays_filename(prefecture))
       end
 
       # Check the today's data is updated
-      results = analyze_csv(file_path, column_index, base_day, date_format)
+      results = analyze_csv(file_path, column_index, base_day, date_format, encoding)
 
       # Wait for a while until next check
       next_run_wait_seconds = 30.minutes.to_i
@@ -148,10 +151,8 @@ class CovidTweet
 
         tweet(message, twitter)
 
-        file_name = prefecture + Time.now.strftime('%Y%m%d') + '.csv'
-
         # ファイルが存在する場合は名前を変更する
-        File.rename(file_path, File.join(DOWNLOAD_DIR, file_name)) if File.exist?(file_path)
+        File.rename(file_path, File.join(DOWNLOAD_DIR, get_todays_filename(prefecture))) if File.exist?(file_path)
       else
         # ファイルが存在する場合は削除する
         File.delete(file_path) if File.exist?(file_path)
@@ -167,8 +168,14 @@ class CovidTweet
       '+'
     elsif diff < 0
       '-'
-    else
-      ''
+    elsif diff == 0
+      '+-'
     end
+  end
+
+  private
+
+  def get_todays_filename(prefecture)
+    prefecture + Time.now.strftime('%Y%m%d') + '.csv'
   end
 end
