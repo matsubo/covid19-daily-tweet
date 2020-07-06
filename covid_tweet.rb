@@ -147,8 +147,8 @@ class CovidTweet
     client.update(message)
   end
 
-  def archive_file(prefecture, _base_day)
-    File.join(DOWNLOAD_DIR, prefecture + Time.now.strftime('%Y%m%d') + '.csv')
+  def archive_file(prefecture, base_day)
+    File.join(DOWNLOAD_DIR, prefecture + base_day.strftime('%Y%m%d') + '.csv')
   end
 
   def get_message(prefecture, base_day_count, prev_day_count)

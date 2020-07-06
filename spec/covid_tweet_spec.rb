@@ -42,4 +42,24 @@ RSpec.describe CovidTweet do
       end
     end
   end
+  describe '#signal' do
+    context 'positive' do
+      let(:diff) { 30 }
+      it 'should be positive' do
+        expect(CovidTweet.new.send(:get_signal, diff)).to eq '+'
+      end
+    end
+    context 'zero' do
+      let(:diff) { 0 }
+      it 'should be positive' do
+        expect(CovidTweet.new.send(:get_signal, diff)).to eq '+-'
+      end
+    end
+    context 'negative' do
+      let(:diff) { -100 }
+      it 'should be positive' do
+        expect(CovidTweet.new.send(:get_signal, diff)).to eq '-'
+      end
+    end
+  end
 end
