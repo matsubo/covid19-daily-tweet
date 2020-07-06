@@ -19,11 +19,14 @@ class CovidTweetProcess
 
     loop do
       if File.exist?(archive_file)
-        log('Waiting until tomorrow morning.')
+        log('Sleeping until tomorrow morning.')
         sleep((1.day.since.midnight + 8.hour).to_i - Time.now.to_i)
       end
 
-      check_and_tweet or sleep(30.minutes.to_i)
+      unless check_and_tweet
+        log('sleeping 30 min')
+        sleep(30.minutes.to_i)
+      end
     end
   end
 
