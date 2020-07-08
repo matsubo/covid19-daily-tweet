@@ -51,7 +51,7 @@ class CovidTweetProcess
 
     # Tweet if today's data is updated.
     tweet(get_message(@account['prefecture_ja'], results[:base_day_count], results[:prev_day_count]))
-    File.rename(tempfile, archive_file)
+    FileUtils.mv(tempfile, archive_file)
 
     true
   end
