@@ -16,7 +16,6 @@ class CovidTweetProcess
 
   # 常駐
   def daemon
-
     loop do
       if File.exist?(archive_file)
         log('Sleeping until tomorrow morning.')
@@ -30,12 +29,10 @@ class CovidTweetProcess
     end
   end
 
-
   #
   # @return bool true if tweeted, false for nothing
   #
   def check_and_tweet
-
     tempfile = nil
 
     Retriable.retriable do
