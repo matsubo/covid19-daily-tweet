@@ -95,7 +95,7 @@ class CovidTweetProcess
     CSV.foreach(csv_path, encoding: @account['encoding']) do |row|
       next if row.length < 0
 
-      row_date = row[actualy_col_index].strip
+      row_date = row[actualy_col_index]&.strip rescue ''
       if row_date == base_date_str
         # 基準日と同じの場合
         base_day_count += 1
