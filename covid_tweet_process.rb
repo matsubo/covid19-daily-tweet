@@ -23,6 +23,11 @@ class CovidTweetProcess
         sleep((1.day.since.midnight + 8.hour).to_i - Time.now.to_i)
       end
 
+      if Time.now.hour < 8
+        log('Sleeping until tomorrow morning.')
+        sleep((0.day.since.midnight + 8.hour).to_i - Time.now.to_i)
+      end
+
       unless check_and_tweet
         log('sleeping 30 min')
         sleep(30.minutes.to_i)
