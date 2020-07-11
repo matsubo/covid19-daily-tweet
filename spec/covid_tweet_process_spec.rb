@@ -1,7 +1,8 @@
 # frozen_string_literal: true
+require 'bundler/setup'
+Bundler.require
 
 require './covid_tweet_process.rb'
-require 'yaml'
 
 RSpec.describe CovidTweetProcess do
   let(:account) { YAML.load_file('settings.yaml')['accounts'].first }

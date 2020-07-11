@@ -133,7 +133,7 @@ class CovidTweetProcess
       config.access_token_secret = twitter_config['access_token_secret']
     end
 
-    return twitter
+    twitter
   end
 
   def archive_file
