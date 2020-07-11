@@ -5,6 +5,8 @@
 ## Setup
 
 ```
+% cp twitter.yaml.template twitter.yaml
+% vi twitter.yaml
 % docker-compose run app bundle
 ```
 

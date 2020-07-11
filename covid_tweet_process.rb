@@ -11,6 +11,7 @@ class CovidTweetProcess
 
   def initialize(account)
     @account = account
+    @twitter = twitter
     @logger = Logger.new((STDOUT unless ENV['TEST']))
   end
 
@@ -118,17 +119,21 @@ class CovidTweetProcess
 
   # ツイートする
   def tweet(message)
-    twitter_config = @account['twitter']
-    client = Twitter::REST::Client.new do |config|
+    log(message)
+    @twitter.update(message)
+  end
+
+  def twitter
+    twitter_yaml = YAML.load_file('twitter.yaml')
+    twitter_config = twitter_yaml[@account['prefecture']]
+    twitter = Twitter::REST::Client.new do |config|
       config.consumer_key = twitter_config['consumer_key']
       config.consumer_secret = twitter_config['consumer_secret']
       config.access_token = twitter_config['access_token']
       config.access_token_secret = twitter_config['access_token_secret']
     end
 
-    log(message)
-
-    client.update(message)
+    return twitter
   end
 
   def archive_file
