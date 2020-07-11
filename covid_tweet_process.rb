@@ -50,9 +50,8 @@ class CovidTweetProcess
       # Tweet if today's data is updated.
       tweet(get_message(@account['prefecture_ja'], results[:base_day_count], results[:prev_day_count]))
       FileUtils.mv(tempfile, archive_file)
-
-    rescue CSV::MalformedCSVError => ex
-      log(ex, :warn)
+    rescue CSV::MalformedCSVError => e
+      log(e, :warn)
       return false
     end
 

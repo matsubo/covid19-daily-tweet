@@ -29,3 +29,5 @@ Style/NumericPredicate:
   Enabled: false
 Style/IfInsideElse:
   Enabled: false
+Style/RescueModifier:
+  Enabled: false
