@@ -40,15 +40,21 @@ class CovidTweetProcess
     end
 
     # Check the today's data is updated
-    results = analyze_csv(tempfile)
+    begin
+      results = analyze_csv(tempfile)
 
-    log(results)
+      log(results)
 
-    return false unless results[:base_day_count].positive? && results[:prev_day_count].positive?
+      return false unless results[:base_day_count].positive? && results[:prev_day_count].positive?
 
-    # Tweet if today's data is updated.
-    tweet(get_message(@account['prefecture_ja'], results[:base_day_count], results[:prev_day_count]))
-    FileUtils.mv(tempfile, archive_file)
+      # Tweet if today's data is updated.
+      tweet(get_message(@account['prefecture_ja'], results[:base_day_count], results[:prev_day_count]))
+      FileUtils.mv(tempfile, archive_file)
+
+    rescue CSV::MalformedCSVError => ex
+      log(ex, :warn)
+      return false
+    end
 
     true
   end
@@ -143,8 +149,8 @@ class CovidTweetProcess
     end
   end
 
-  def log(message)
-    @logger.info("[#{@account['prefecture']}]: #{message}")
+  def log(message, level: :info)
+    @logger.send(level, "[#{@account['prefecture']}]: #{message}")
   end
 
   def get_signal(diff)
