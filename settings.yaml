@@ -11,7 +11,7 @@ accounts:
     prefecture_ja: 長野県
     csv: https://www.pref.nagano.lg.jp/hoken-shippei/kenko/kenko/kansensho/joho/documents/200000_nagano_covid19_patients.csv
     column: 5
-    date: '%Y/%m/%d'
+    date: '%Y/%-m/%-d'
     encoding: 'Shift_JIS'
     #  -
     #    prefecture: gunma
