@@ -29,8 +29,8 @@ class CovidTweetProcess
       end
 
       unless check_and_tweet
-        log('sleeping 30 min')
-        sleep(30.minutes.to_i)
+        log('sleeping 10 min')
+        sleep(10.minutes.to_i)
       end
     end
   end

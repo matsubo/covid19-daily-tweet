@@ -2,7 +2,7 @@
 
 ![Ruby](https://github.com/matsubo/covid19-daily-tweet/workflows/Ruby/badge.svg)
 
-- [新型コロナウイルス感染症対策に関するオープンデータ項目定義書](https://docs.google.com/spreadsheets/d/1fJtqxqh_4OuUwq2LQ_WRx23fwcEB4hNL/edit#gid=1874865803)フォーマットで提供されている（またはプログラムにとって可読性の高いファイルが提供されている）都道府県のデータを30分に1回クロールして新規感染者がでた場合はTweetします。
+- [新型コロナウイルス感染症対策に関するオープンデータ項目定義書](https://docs.google.com/spreadsheets/d/1fJtqxqh_4OuUwq2LQ_WRx23fwcEB4hNL/edit#gid=1874865803)フォーマットで提供されている（またはプログラムにとって可読性の高いファイルが提供されている）都道府県のデータを10分に1回クロールして新規感染者がでた場合はTweetします。
 - pull-requestやissueの内容の解決はウェルカムです。
 
 ## Setup
