@@ -3,5 +3,5 @@
 require 'bundler/setup'
 Bundler.require
 
-require './covid_tweet.rb'
+require_relative 'lib/covid_tweet'
 puts CovidTweet.new.main

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require './covid_tweet_process.rb'
+require_relative 'covid_tweet_process'
 
 # Make a tweet of today's report.
 class CovidTweet
