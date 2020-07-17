@@ -34,13 +34,13 @@ accounts:
     column: 1
     date: '%Y-%m-%d'
     encoding: 'Shift_JIS'
-    #  -
-    #    prefecture: mie
-    #    prefecture_ja: 三重県
-    #    csv: https://www.pref.mie.lg.jp/common/content/000896797.csv
-    #    column: 1
-    #    date: '%Y/%m/%d'
-    #    encoding: 'Shift_JIS'
+  -
+    prefecture: mie
+    prefecture_ja: 三重県
+    csv: https://www.pref.mie.lg.jp/common/content/000896797.csv
+    column: 5
+    date: '%Y/%-m/%-d'
+    encoding: 'Shift_JIS'
   -
     prefecture: gifu
     prefecture_ja: 岐阜県
