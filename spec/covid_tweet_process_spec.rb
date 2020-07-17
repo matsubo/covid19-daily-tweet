@@ -21,7 +21,7 @@ RSpec.describe CovidTweetProcess do
       context '0, 0' do
         let(:base_day_count) { 0 }
         let(:prev_day_count) { 0 }
-        let(:output) { '本日の新規陽性者数は0人です。（前日比 +-0人） #covid19 #東京都' }
+        let(:output) { '本日の新規陽性者数は0人です。（前日比 ±0人） #covid19 #東京都' }
 
         it 'should match the response' do
           expect(CovidTweetProcess.new(account).send(:get_message, prefecture, base_day_count, prev_day_count)).to eq output
@@ -66,7 +66,7 @@ RSpec.describe CovidTweetProcess do
     context 'zero' do
       let(:diff) { 0 }
       it 'should be positive' do
-        expect(CovidTweetProcess.new(account).send(:get_signal, diff)).to eq '+-'
+        expect(CovidTweetProcess.new(account).send(:get_signal, diff)).to eq '±'
       end
     end
     context 'negative' do
