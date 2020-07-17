@@ -168,7 +168,7 @@ class CovidTweetProcess
     elsif diff < 0
       '-'
     elsif diff == 0
-      '+-'
+      '±'
     end
   end
 end
