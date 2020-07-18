@@ -12,14 +12,15 @@ accounts:
     csv: https://www.pref.nagano.lg.jp/hoken-shippei/kenko/kenko/kansensho/joho/documents/200000_nagano_covid19_patients.csv
     column: 5
     date: '%Y/%-m/%-d'
-    encoding: 'Shift_JIS'
-    #  -
-    #    prefecture: gunma
-    #    prefecture_ja: 群馬県
-    #    csv: http://stopcovid19.pref.gunma.jp/csv/01kanja.csv
-    #    column: 2
-    #    date: '%-m月%-d日' # Year is not existed so this will not work after 2021.
-    #    encoding: 'Shift_JIS'
+    encoding: 'Shift_JIS:UTF-8'
+  -
+    prefecture: gunma
+    prefecture_ja: 群馬県
+    csv: http://stopcovid19.pref.gunma.jp/csv/01kanja.csv
+    column: 2
+    age_column: 5
+    date: '%-m月%-d日' # Year is not existed so this will not work after 2021.
+    encoding: 'Shift_JIS:UTF-8'
   -
     prefecture: tokyo
     prefecture_ja: 東京都
