@@ -72,12 +72,12 @@ class CovidTweetProcess
       begin
         # tweet with media
         @twitter.update_with_media(message, CovidGraph.new(tempfile, @account).create)
-      rescue => exception
+      rescue StandardError => e
+        log(e)
         @twitter.update(message)
       end
 
       FileUtils.mv(tempfile, archive_file)
-
     rescue CSV::MalformedCSVError => e
       log(e, :warn)
       return false
@@ -147,14 +147,12 @@ class CovidTweetProcess
   def twitter
     twitter_yaml = YAML.load_file('twitter.yaml')
     twitter_config = twitter_yaml[@account['prefecture']]
-    twitter = Twitter::REST::Client.new do |config|
+    Twitter::REST::Client.new do |config|
       config.consumer_key = twitter_config['consumer_key']
       config.consumer_secret = twitter_config['consumer_secret']
       config.access_token = twitter_config['access_token']
       config.access_token_secret = twitter_config['access_token_secret']
     end
-
-    twitter
   end
 
   def archive_file

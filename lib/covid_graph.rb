@@ -15,7 +15,6 @@
 # ```
 #
 class CovidGraph
-
   def initialize(file, account)
     @file = file
     @account = account
@@ -28,7 +27,7 @@ class CovidGraph
     g.legend_font_size = 15
     g.title = format('%{area}のCOVID-19新規陽性者数', area: @account['prefecture_ja'])
 
-    g.labels = get_label_for_label(get_label)
+    g.labels = eliminate_label(dates)
     create_count_dataset(dataset).each do |record|
       g.data record[0], record[1]
     end
@@ -45,7 +44,8 @@ class CovidGraph
   end
 
   private
-  def get_label
+
+  def dates
     result = {}
     index = 0
     date = Date.new(2020, 1, 15)
@@ -57,7 +57,8 @@ class CovidGraph
     result
   end
 
-  def get_label_for_label(labels)
+  # Omitt the label title
+  def eliminate_label(labels)
     index = 0
     labels.each do |key, date|
       labels[key] = if Date.today == date
@@ -116,7 +117,7 @@ class CovidGraph
     new_data = []
     get_categories(dataset).each do |category|
       metric_data = []
-      get_label.each do |data|
+      dates.each do |data|
         date = data[1]
         metric_data << ((dataset[date][category] || 0) rescue 0)
       end
