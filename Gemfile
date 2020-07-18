@@ -9,6 +9,7 @@ gem 'retriable'
 gem 'thread'
 gem 'twitter'
 gem 'yaml'
+gem 'gruff'
 
 gem 'pry-byebug', require: false
 gem 'rspec', require: false

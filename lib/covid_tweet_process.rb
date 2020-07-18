@@ -1,6 +1,17 @@
 # frozen_string_literal: true
 
+require_relative 'covid_graph'
+
 # Make a tweet of today's report.
+# ```
+# require 'bundler/setup'
+# Bundler.require
+#
+# require 'yaml'
+# account = YAML.load_file('settings.yaml')['accounts'][4]
+# CovidTweetProcess.new(account).check_and_tweet
+#
+# ````
 class CovidTweetProcess
   require 'net/http'
   require 'active_support/all'
@@ -54,7 +65,14 @@ class CovidTweetProcess
       return false unless results[:base_day_count].positive? && results[:prev_day_count].positive?
 
       # Tweet if today's data is updated.
-      tweet(get_message(@account['prefecture_ja'], results[:base_day_count], results[:prev_day_count]))
+      message = get_message(@account['prefecture_ja'], results[:base_day_count], results[:prev_day_count])
+      log(message)
+      if @account['age_column']
+        # tweet with media
+        @twitter.update_with_media(message, CovidGraph.new(tempfile, @account).create)
+      else
+        @twitter.update(message)
+      end
       FileUtils.mv(tempfile, archive_file)
     rescue CSV::MalformedCSVError => e
       log(e, :warn)
@@ -120,12 +138,6 @@ class CovidTweetProcess
       base_day_count: base_day_count,
       prev_day_count: prev_day_count
     }
-  end
-
-  # ツイートする
-  def tweet(message)
-    log(message)
-    @twitter.update(message)
   end
 
   def twitter

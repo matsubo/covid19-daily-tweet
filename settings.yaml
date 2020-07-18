@@ -25,6 +25,7 @@ accounts:
     prefecture_ja: 東京都
     csv: https://stopcovid19.metro.tokyo.lg.jp/data/130001_tokyo_covid19_patients.csv
     column: 5
+    age_column: 9
     date: '%Y-%m-%d'
     encoding: 'BOM|UTF-8'
   -
@@ -32,15 +33,17 @@ accounts:
     prefecture_ja: 神奈川県
     csv: https://www.pref.kanagawa.jp/osirase/1369/data/csv/patient.csv
     column: 1
+    age_column: 3
     date: '%Y-%m-%d'
-    encoding: 'Shift_JIS'
+    encoding: 'Shift_JIS:UTF-8'
   -
     prefecture: mie
     prefecture_ja: 三重県
     csv: https://www.pref.mie.lg.jp/common/content/000896797.csv
     column: 5
-    date: '%Y/%-m/%-d'
-    encoding: 'Shift_JIS'
+    age_column: 8
+    date: '%Y/%m/%d'
+    encoding: 'Shift_JIS:UTF-8'
   -
     prefecture: gifu
     prefecture_ja: 岐阜県
