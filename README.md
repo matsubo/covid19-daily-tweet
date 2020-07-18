@@ -1,14 +1,20 @@
 # covid19-daily-tweet
 
-
-
 [![Ruby](https://github.com/matsubo/covid19-daily-tweet/workflows/Ruby/badge.svg)](https://github.com/matsubo/covid19-daily-tweet/actions)
 [![Discord Shield](https://discordapp.com/api/guilds/725542623594545233/widget.png?style=shield)](https://discord.gg/sSfEha)
 
 
+## For Japanese 
 
 - [新型コロナウイルス感染症対策に関するオープンデータ項目定義書](https://docs.google.com/spreadsheets/d/1fJtqxqh_4OuUwq2LQ_WRx23fwcEB4hNL/edit#gid=1874865803)フォーマットで提供されている（またはプログラムにとって可読性の高いファイルが提供されている）都道府県のデータを10分に1回クロールして新規感染者がでた場合はTweetします。
 - pull-requestやissueの内容の解決はウェルカムです。
+- 運用しているTwitter Botは[こちら](https://covid19.teraren.com/)に一覧を掲載しています。
+
+## For English
+
+- This program tweets once a day to report the number of positiver person of COVID-19. Some government of prefectures provide with [COVID-19 report open deta definitions](https://docs.google.com/spreadsheets/d/1fJtqxqh_4OuUwq2LQ_WRx23fwcEB4hNL/edit#gid=1874865803) format this program check the file update and tweet if there are new records.
+- pull-request and resolving issues are welcomed.
+- [List of operating twitter bot](https://covid19.teraren.com/).
 
 ## Setup
 
