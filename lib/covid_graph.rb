@@ -82,7 +82,8 @@ class CovidGraph
     CSV.foreach(@file, headers: true, encoding: @account['encoding']) do |row|
       next if row.length < 0
 
-      date = Date.parse(row[actualy_col_index]) rescue next
+      date_string = row[actualy_col_index].gsub(/[月日]/, '/') # 群馬県対策
+      date = Date.parse(date_string) rescue next
       age = (row[age_column_index] || '不明').strip
 
       dataset[date] ||= {}
@@ -101,7 +102,6 @@ class CovidGraph
     sort_model = ['乳児', '小学生', '1歳未満', '10代未満', '10未満', '10歳未満', '10代', '20代', '30代', '40代', '50代', '60代', '70代', '80代', '90代', '100代', '100歳以上', '高齢者', '不明', '非公表', '-', '−']
 
     categories.sort { |a, b| (sort_model.index(a) || sort_model.count) <=> (sort_model.index(b) || sort_model.count) }
-
   end
 
   def create_count_dataset(dataset)
