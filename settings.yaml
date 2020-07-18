@@ -55,13 +55,14 @@ accounts:
     age_column: 8
     date: '%Y-%m-%d'
     encoding: 'Shift_JIS:UTF-8'
-    #  -
-    #    prefecture: okayama
-    #    prefecture_ja: 岡山県
-    #    csv: http://www.okayama-opendata.jp/ckan/dataset/e6b3c1d2-2f1f-4735-b36e-e45d36d94761/resource/c6503ebc-b2e9-414c-aae7-7374f4801e21/download/kansenshashousaijouhou0420.csv
-    #    column: 4
-    #    date: '%-m月%-d日' # Year is not existed so this will not work after 2021.
-    #    encoding: 'Shift_JIS'
+  -
+    prefecture: okayama
+    prefecture_ja: 岡山県
+    csv: http://www.okayama-opendata.jp/ckan/dataset/e6b3c1d2-2f1f-4735-b36e-e45d36d94761/resource/c6503ebc-b2e9-414c-aae7-7374f4801e21/download/kansenshashousaijouhou0420.csv
+    column: 4
+    age_column: 7
+    date: '%-m月%-d日' # Year is not existed so this will not work after 2021.
+    encoding: 'Shift_JIS:UTF-8'
   -
     prefecture: fukuoka
     prefecture_ja: 福岡県
@@ -70,10 +71,12 @@ accounts:
     age_column: 9
     date: '%Y/%m/%d'
     encoding: 'BOM|UTF-8'
-    #  -
-    #    prefecture: kumamoto
-    #    prefecture_ja: 熊本県
-    #    csv: "https://www.pref.kumamoto.jp/common/UploadFileOutput.ashx?c_id=3&id=22038&sub_id=115&flid=241242"
-    #    column: 5
-    #    date: '%Y-%m-%d'
-    #    encoding: 'BOM|UTF-8'
+  -
+    prefecture: kumamoto
+    prefecture_ja: 熊本県
+    csv: "https://www.pref.kumamoto.jp/common/UploadFileOutput.ashx?c_id=3&id=22038&sub_id=115&flid=241242"
+    column: 5
+    age_column: 8
+    date: '%Y-%m-%d'
+    encoding: 'BOM|UTF-8'
+
