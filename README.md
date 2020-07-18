@@ -21,7 +21,7 @@
 ```
 % cp twitter.yaml.template twitter.yaml
 % vi twitter.yaml
-% docker-compose run app bundle
+% docker-compose run --rm app bundle
 ```
 
 ## Run
