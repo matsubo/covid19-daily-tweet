@@ -5,6 +5,7 @@ source 'https://rubygems.org'
 # gem "rails"
 gem 'activesupport'
 gem 'csv'
+gem 'gruff'
 gem 'retriable'
 gem 'thread'
 gem 'twitter'

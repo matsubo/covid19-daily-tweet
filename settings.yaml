@@ -4,13 +4,15 @@ accounts:
     prefecture_ja: 北海道
     csv: https://www.harp.lg.jp/opendata/dataset/1369/resource/3132/010006_hokkaido_covid19_patients.csv
     column: 5
+    age_column: 8
     date: '%Y-%m-%d'
-    encoding: 'Shift_JIS'
+    encoding: 'Shift_JIS:UTF-8'
   -
     prefecture: nagano
     prefecture_ja: 長野県
     csv: https://www.pref.nagano.lg.jp/hoken-shippei/kenko/kenko/kansensho/joho/documents/200000_nagano_covid19_patients.csv
     column: 5
+    age_column: 8
     date: '%Y/%-m/%-d'
     encoding: 'Shift_JIS:UTF-8'
   -
@@ -26,6 +28,7 @@ accounts:
     prefecture_ja: 東京都
     csv: https://stopcovid19.metro.tokyo.lg.jp/data/130001_tokyo_covid19_patients.csv
     column: 5
+    age_column: 9
     date: '%Y-%m-%d'
     encoding: 'BOM|UTF-8'
   -
@@ -33,22 +36,25 @@ accounts:
     prefecture_ja: 神奈川県
     csv: https://www.pref.kanagawa.jp/osirase/1369/data/csv/patient.csv
     column: 1
+    age_column: 3
     date: '%Y-%m-%d'
-    encoding: 'Shift_JIS'
+    encoding: 'Shift_JIS:UTF-8'
   -
     prefecture: mie
     prefecture_ja: 三重県
     csv: https://www.pref.mie.lg.jp/common/content/000896797.csv
     column: 5
-    date: '%Y/%-m/%-d'
-    encoding: 'Shift_JIS'
+    age_column: 8
+    date: '%Y/%m/%d'
+    encoding: 'Shift_JIS:UTF-8'
   -
     prefecture: gifu
     prefecture_ja: 岐阜県
     csv: https://data.gifu-opendata.pref.gifu.lg.jp/dataset/4661bf9d-6f75-43fb-9d59-f02eb84bb6e3/resource/9c35ee55-a140-4cd8-a266-a74edf60aa80/download/210005gifucovid19patients.csv
     column: 5
+    age_column: 8
     date: '%Y-%m-%d'
-    encoding: 'Shift_JIS'
+    encoding: 'Shift_JIS:UTF-8'
     #  -
     #    prefecture: okayama
     #    prefecture_ja: 岡山県
@@ -61,6 +67,7 @@ accounts:
     prefecture_ja: 福岡県
     csv: https://ckan.open-governmentdata.org/dataset/8a9688c2-7b9f-4347-ad6e-de3b339ef740/resource/c27769a2-8634-47aa-9714-7e21c4038dd4/download/400009_pref_fukuoka_covid19_patients.csv
     column: 5
+    age_column: 9
     date: '%Y/%m/%d'
     encoding: 'BOM|UTF-8'
     #  -
