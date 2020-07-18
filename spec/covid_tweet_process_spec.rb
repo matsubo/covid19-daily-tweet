@@ -3,7 +3,7 @@
 require 'bundler/setup'
 Bundler.require
 
-require_relative '../lib/covid_tweet_process.rb'
+require_relative '../lib/covid_tweet_process'
 
 RSpec.describe CovidTweetProcess do
   let(:account) { YAML.load_file('settings.yaml')['accounts'].first }

@@ -15,6 +15,7 @@
 # ```
 #
 class CovidGraph
+
   def initialize(file, account)
     @file = file
     @account = account
@@ -32,18 +33,18 @@ class CovidGraph
       g.data record[0], record[1]
     end
 
-    # pp get_label_for_label(get_label)
-    pp create_count_dataset(dataset)[0][1].count
-
+    # file extension is required by Gruff.
     tempfile = Tempfile.new(['gruff', '.png'])
 
     g.write(tempfile.path)
 
-    FileUtils.copy(tempfile, 'gruff-example.png')
+    # for debug
+    # FileUtils.copy(tempfile, 'gruff-example.png')
 
     tempfile
   end
 
+  private
   def get_label
     result = {}
     index = 0
@@ -71,6 +72,8 @@ class CovidGraph
     labels
   end
 
+  # Parse the csv file and return structed Hash data
+  # @return Hash
   def create_dataset
     require 'date'
 
@@ -93,17 +96,22 @@ class CovidGraph
     dataset
   end
 
+  # return sorted category
+  # @return Array
   def get_categories(dataset)
     categories = []
     dataset.each do |_date, hash|
       categories = categories.concat(hash.keys).uniq
     end
 
+    # left is more bottom
     sort_model = ['乳児', '小学生', '1歳未満', '10代未満', '10未満', '10歳未満', '10代', '20代', '30代', '40代', '50代', '60代', '70代', '80代', '90代', '100代', '100歳以上', '高齢者', '不明', '非公表', '-', '−']
 
     categories.sort { |a, b| (sort_model.index(a) || sort_model.count) <=> (sort_model.index(b) || sort_model.count) }
   end
 
+  # create hash data for Gruff from the passed data
+  # @return Hash
   def create_count_dataset(dataset)
     new_data = []
     get_categories(dataset).each do |category|
@@ -117,29 +125,3 @@ class CovidGraph
     new_data
   end
 end
-
-#require 'bundler/setup'
-#Bundler.require
-#
-#require 'yaml'
-#
-# account = YAML.load_file('settings.yaml')['accounts'][4]
-# CovidGraph.new(File.open('downloads/mie20200718.csv'), account).create
-
-# account = YAML.load_file('settings.yaml')['accounts'][2]
-# CovidGraph.new(File.open('downloads/tokyo.csv'), account).create
-
-#account = YAML.load_file('settings.yaml')['accounts'][3] # kanagawa`
-#CovidGraph.new(File.open('downloads/kanagawa.csv'), account).create
-
-#account = YAML.load_file('settings.yaml')['accounts'][5] # kanagawa`
-#CovidGraph.new(File.open('downloads/gifu.csv'), account).create
-
-#account = YAML.load_file('settings.yaml')['accounts'][1] # kanagawa`
-#CovidGraph.new(File.open('downloads/nagano.csv'), account).create
-
-#account = YAML.load_file('settings.yaml')['accounts'][0] # kanagawa`
-#CovidGraph.new(File.open('downloads/hokkaido.csv'), account).create
-
-#account = YAML.load_file('settings.yaml')['accounts'][6]
-#CovidGraph.new(File.open('downloads/fukuoka.csv'), account).create

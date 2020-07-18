@@ -66,14 +66,18 @@ class CovidTweetProcess
 
       # Tweet if today's data is updated.
       message = get_message(@account['prefecture_ja'], results[:base_day_count], results[:prev_day_count])
+
       log(message)
-      if @account['age_column']
+
+      begin
         # tweet with media
         @twitter.update_with_media(message, CovidGraph.new(tempfile, @account).create)
-      else
+      rescue => exception
         @twitter.update(message)
       end
+
       FileUtils.mv(tempfile, archive_file)
+
     rescue CSV::MalformedCSVError => e
       log(e, :warn)
       return false
