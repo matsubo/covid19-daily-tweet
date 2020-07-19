@@ -8,11 +8,43 @@ accounts:
     date: '%Y-%m-%d'
     encoding: 'Shift_JIS:UTF-8'
   -
+    prefecture: aomori
+    prefecture_ja: 青森県
+    csv: https://opendata.pref.aomori.lg.jp/dataset/1531/resource/11659/02_20200716_%E9%99%BD%E6%80%A7%E6%82%A3%E8%80%85%E9%96%A2%E4%BF%82.csv
+    column: 5
+    age_column: 8
+    date: '%Y年%-m月%-d日'
+    encoding: 'Shift_JIS:UTF-8'
+  -
     prefecture: nagano
     prefecture_ja: 長野県
     csv: https://www.pref.nagano.lg.jp/hoken-shippei/kenko/kenko/kansensho/joho/documents/200000_nagano_covid19_patients.csv
     column: 5
     age_column: 8
+    date: '%Y/%-m/%-d'
+    encoding: 'Shift_JIS:UTF-8'
+  -
+    prefecture: toyama
+    prefecture_ja: 富山県
+    csv: http://opendata.pref.toyama.jp/files/covid19/20200403/toyama_patients.csv
+    column: 3
+    age_column: 4
+    date: '%Y-%m-%d'
+    encoding: 'BOM|UTF-8'
+  -
+    prefecture: fukui
+    prefecture_ja: 福井県
+    csv: https://www.pref.fukui.lg.jp/doc/toukei-jouhou/covid-19_d/fil/covid19_patients.csv
+    column: 5
+    age_column: 8
+    date: '%Y/%-m/%-d'
+    encoding: 'BOM|UTF-8'
+  -
+    prefecture: yamagata
+    prefecture_ja: 山形県
+    csv: https://www.pref.yamagata.jp/ou/kenkofukushi/090001/20130425/siryou/060003_yamagata_covid19_patients_0717.csv
+    column: 4
+    age_column: 7
     date: '%Y/%-m/%-d'
     encoding: 'Shift_JIS:UTF-8'
   -
@@ -40,6 +72,14 @@ accounts:
     date: '%Y-%m-%d'
     encoding: 'Shift_JIS:UTF-8'
   -
+    prefecture: ishikawa
+    prefecture_ja: 石川県
+    csv: https://www.pref.ishikawa.lg.jp/kansen/documents/170003_ishikawa_covid19_patients.csv
+    column: 5
+    age_column: 7
+    date: '%Y/%-m/%-d'
+    encoding: 'Shift_JIS:UTF-8'
+  -
     prefecture: mie
     prefecture_ja: 三重県
     csv: https://www.pref.mie.lg.jp/common/content/000896797.csv
@@ -56,12 +96,36 @@ accounts:
     date: '%Y-%m-%d'
     encoding: 'Shift_JIS:UTF-8'
   -
+    prefecture: yamaguchi
+    prefecture_ja: 山口県
+    csv: https://yamaguchi-opendata.jp/ckan/dataset/f6e5cff9-ae43-4cd9-a398-085187277edf/resource/f56e6552-4c5d-4ec6-91c0-090f553e0aea/download/350001_yamaguchi_covid19_patients.csv
+    column: 5
+    age_column: 7
+    date: '%Y/%-m/%-d'
+    encoding: 'BOM|UTF-8'
+  -
     prefecture: okayama
     prefecture_ja: 岡山県
     csv: http://www.okayama-opendata.jp/ckan/dataset/e6b3c1d2-2f1f-4735-b36e-e45d36d94761/resource/c6503ebc-b2e9-414c-aae7-7374f4801e21/download/kansenshashousaijouhou0420.csv
     column: 4
     age_column: 7
     date: '%-m月%-d日' # Year is not existed so this will not work after 2021.
+    encoding: 'Shift_JIS:UTF-8'
+  -
+    prefecture: ehime
+    prefecture_ja: 愛媛県
+    csv: https://www.pref.ehime.jp/opendata-catalog/dataset/2174/resource/7057/380008_ehime_covid19_patients.csv
+    column: 5
+    age_column: 9
+    date: '%Y-%m-%d'
+    encoding: 'BOM|UTF-8'
+  -
+    prefecture: kochi
+    prefecture_ja: 高知県
+    csv: https://www.pref.kochi.lg.jp/soshiki/111301/files/2020041300141/390003_kochi_covid19_patients.csv
+    column: 5
+    age_column: 9
+    date: '%Y/%-m/%-d'
     encoding: 'Shift_JIS:UTF-8'
   -
     prefecture: fukuoka
@@ -78,5 +142,21 @@ accounts:
     column: 5
     age_column: 8
     date: '%Y-%m-%d'
+    encoding: 'BOM|UTF-8'
+  -
+    prefecture: oita
+    prefecture_ja: 大分県
+    csv: "http://data.bodik.jp/dataset/f632f467-716c-46aa-8838-0d535f98b291/resource/3714d264-70f3-4518-a57a-8391e0851d7d/download/440001oitacovid19patients.csv"
+    column: 5
+    age_column: 9
+    date: '%Y/%-m/%-d'
+    encoding: 'BOM|UTF-8'
+  -
+    prefecture: nagasaki
+    prefecture_ja: 長崎県
+    csv: http://data.bodik.jp/dataset/09951e04-dc5d-42e9-9a49-37443be6787e/resource/de7ce61e-1849-47a1-b758-bca3f809cdf8/download/20200716prefnagasakicovidpatients.csv
+    column: 5
+    age_column: 9
+    date: '%Y-%-m-%-d'
     encoding: 'BOM|UTF-8'
 
