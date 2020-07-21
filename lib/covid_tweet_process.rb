@@ -62,7 +62,7 @@ class CovidTweetProcess
 
       log(results)
 
-      return false unless results[:base_day_count].positive? && results[:prev_day_count].positive?
+      return false unless results[:base_day_count].positive?
 
       # Tweet if today's data is updated.
       message = get_message(@account['prefecture_ja'], results[:base_day_count], results[:prev_day_count])
