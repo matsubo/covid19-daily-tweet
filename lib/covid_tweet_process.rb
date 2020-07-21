@@ -94,18 +94,12 @@ class CovidTweetProcess
   # @return File
   #
   def download(url)
-    download_uri = URI.parse(url)
-    http = Net::HTTP.new(download_uri.host, download_uri.port)
-    http.use_ssl = true
-    req = Net::HTTP::Get.new(download_uri.path)
-
     log("downloading file: #{url}")
-
-    response = http.request(req)
 
     tempfile = Tempfile.create
 
-    File.write(tempfile, response.body)
+    require 'open-uri'
+    File.write tempfile, URI.open(url).read
 
     tempfile
   end
