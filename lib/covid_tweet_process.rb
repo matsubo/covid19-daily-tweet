@@ -121,6 +121,7 @@ class CovidTweetProcess
 
     CSV.foreach(csv_path, encoding: @account['encoding']) do |row|
       next if row.length < 0
+      next if row[actualy_col_index].nil? # next if empty column
 
       row_date = row[actualy_col_index]&.strip rescue ''
       if row_date == base_date_str

@@ -9,10 +9,13 @@
 #
 #
 # require 'yaml'
-# account = YAML.load_file('settings.yaml')['accounts'][2]
+# account = YAML.load_file('settings.yaml')['accounts'][11]
 #
-# CovidGraph.new(File.open('downloads/tokyo.csv'), account).create
-# ```
+# file = CovidGraph.new(File.open('downloads/gifu20200721.csv'), account).create
+# FileUtils.chmod(0644, file)
+# pp FileUtils.copy(file, 'test.png')
+#
+## ```
 #
 class CovidGraph
   def initialize(file, account)
@@ -85,6 +88,7 @@ class CovidGraph
 
     CSV.foreach(@file, headers: true, encoding: @account['encoding']) do |row|
       next if row.length < 0
+      next if row[actualy_col_index].nil? # next if empty column
 
       date_string = row[actualy_col_index].gsub(/[月日]/, '/') # 群馬県対策
       date = Date.parse(date_string) rescue next
