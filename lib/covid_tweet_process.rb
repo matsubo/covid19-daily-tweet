@@ -30,13 +30,13 @@ class CovidTweetProcess
   def daemon
     loop do
       if File.exist?(archive_file)
-        log('Sleeping until tomorrow morning.')
-        sleep((1.day.since.midnight + 8.hour).to_i - Time.now.to_i)
+        log('Sleeping until tomorrow evening.')
+        sleep((1.day.since.midnight + 16.hour).to_i - Time.now.to_i)
       end
 
       if Time.now.hour < 8
-        log('Sleeping until tomorrow morning.')
-        sleep((0.day.since.midnight + 8.hour).to_i - Time.now.to_i)
+        log('Sleeping until tomorrow evening.')
+        sleep((0.day.since.midnight + 16.hour).to_i - Time.now.to_i)
       end
 
       unless check_and_tweet
