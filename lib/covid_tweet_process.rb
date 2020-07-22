@@ -39,7 +39,7 @@ class CovidTweetProcess
       end
 
       if Time.now.hour < HOURS_TO_START
-        log('Sleeping until tomorrow evening.')
+        log('Sleeping until today evening.')
 
         sleep((0.day.since.midnight + HOURS_TO_START.hour).to_i - Time.now.to_i)
       end
