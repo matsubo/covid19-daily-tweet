@@ -18,7 +18,11 @@ class CovidTweetProcess
   require 'tempfile'
   require 'logger'
 
+  # Data snapshot preserve directory
   DOWNLOAD_DIR = 'downloads'
+
+  # Time of the day to start crawling
+  HOURS_TO_START = 16
 
   def initialize(account)
     @account = account
@@ -31,12 +35,13 @@ class CovidTweetProcess
     loop do
       if File.exist?(archive_file)
         log('Sleeping until tomorrow evening.')
-        sleep((1.day.since.midnight + 16.hour).to_i - Time.now.to_i)
+        sleep((1.day.since.midnight + HOURS_TO_START.hour).to_i - Time.now.to_i)
       end
 
-      if Time.now.hour < 8
+      if Time.now.hour < HOURS_TO_START
         log('Sleeping until tomorrow evening.')
-        sleep((0.day.since.midnight + 16.hour).to_i - Time.now.to_i)
+
+        sleep((0.day.since.midnight + HOURS_TO_START.hour).to_i - Time.now.to_i)
       end
 
       unless check_and_tweet
