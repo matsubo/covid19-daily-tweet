@@ -3,15 +3,15 @@
 # Make a historical graph
 #
 # ```
+#
 # require 'bundler/setup'
 # Bundler.require
 #
-#
-#
 # require 'yaml'
-# account = YAML.load_file('settings.yaml')['accounts'][2]
+# account = YAML.load_file('settings.yaml')['accounts'][3]
 #
-# CovidGraph.new(File.open('downloads/tokyo.csv'), account).create
+# file = CovidGraph.new(File.open('downloads/tokyo.csv'), account).create
+# FileUtils.copy(file, 'test.png')
 # ```
 #
 class CovidGraph
@@ -23,6 +23,7 @@ class CovidGraph
   def create
     dataset = create_dataset
     g = Gruff::StackedBar.new
+    g.colors = colors(get_categories(dataset))
     g.font = './vendor/HackGen/HackGen-Regular.ttf'
     g.legend_font_size = 15
     g.title = format('%{area}のCOVID-19新規陽性者数', area: @account['prefecture_ja'])
@@ -106,7 +107,30 @@ class CovidGraph
     end
 
     # left is more bottom
-    sort_model = ['乳児', '小学生', '1歳未満', '10代未満', '10未満', '10歳未満', '10代', '20代', '30代', '40代', '50代', '60代', '70代', '80代', '90代', '100代', '100歳以上', '高齢者', '不明', '非公表', '-', '−']
+    sort_model = [
+      '乳児',
+      '小学生',
+      '1歳未満',
+      '10代未満',
+      '10未満',
+      '10歳未満',
+      '10代',
+      '20代',
+      '30代',
+      '40代',
+      '50代',
+      '60代',
+      '70代',
+      '80代',
+      '90代',
+      '100代',
+      '100歳以上',
+      '高齢者',
+      '不明',
+      '非公表',
+      '-',
+      '−'
+    ]
 
     categories.sort { |a, b| (sort_model.index(a) || sort_model.count) <=> (sort_model.index(b) || sort_model.count) }
   end
@@ -124,5 +148,10 @@ class CovidGraph
       new_data << [category, metric_data]
     end
     new_data
+  end
+
+  def colors(categories)
+    require 'json'
+    JSON.parse(File.open('colors.json')).values[0, categories.size]
   end
 end
