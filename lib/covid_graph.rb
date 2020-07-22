@@ -11,6 +11,7 @@
 # account = YAML.load_file('settings.yaml')['accounts'][3]
 #
 # file = CovidGraph.new(File.open('downloads/tokyo.csv'), account).create
+# FileUtils.chmod(0644, file)
 # FileUtils.copy(file, 'test.png')
 # ```
 #
@@ -86,6 +87,7 @@ class CovidGraph
 
     CSV.foreach(@file, headers: true, encoding: @account['encoding']) do |row|
       next if row.length < 0
+      next if row[actualy_col_index].nil? # next if empty column
 
       date_string = row[actualy_col_index].gsub(/[月日]/, '/') # 群馬県対策
       date = Date.parse(date_string) rescue next

@@ -18,7 +18,11 @@ class CovidTweetProcess
   require 'tempfile'
   require 'logger'
 
+  # Data snapshot preserve directory
   DOWNLOAD_DIR = 'downloads'
+
+  # Time of the day to start crawling
+  HOURS_TO_START = 16
 
   def initialize(account)
     @account = account
@@ -30,13 +34,14 @@ class CovidTweetProcess
   def daemon
     loop do
       if File.exist?(archive_file)
-        log('Sleeping until tomorrow morning.')
-        sleep((1.day.since.midnight + 8.hour).to_i - Time.now.to_i)
+        log('Sleeping until tomorrow evening.')
+        sleep((1.day.since.midnight + HOURS_TO_START.hour).to_i - Time.now.to_i)
       end
 
-      if Time.now.hour < 8
-        log('Sleeping until tomorrow morning.')
-        sleep((0.day.since.midnight + 8.hour).to_i - Time.now.to_i)
+      if Time.now.hour < HOURS_TO_START
+        log('Sleeping until tomorrow evening.')
+
+        sleep((0.day.since.midnight + HOURS_TO_START.hour).to_i - Time.now.to_i)
       end
 
       unless check_and_tweet
@@ -62,7 +67,7 @@ class CovidTweetProcess
 
       log(results)
 
-      return false unless results[:base_day_count].positive? && results[:prev_day_count].positive?
+      return false unless results[:base_day_count].positive?
 
       # Tweet if today's data is updated.
       message = get_message(@account['prefecture_ja'], results[:base_day_count], results[:prev_day_count])
@@ -79,7 +84,7 @@ class CovidTweetProcess
 
       FileUtils.mv(tempfile, archive_file)
     rescue CSV::MalformedCSVError => e
-      log(e, :warn)
+      log(e, level: :warn)
       return false
     end
 
@@ -94,18 +99,12 @@ class CovidTweetProcess
   # @return File
   #
   def download(url)
-    download_uri = URI.parse(url)
-    http = Net::HTTP.new(download_uri.host, download_uri.port)
-    http.use_ssl = true
-    req = Net::HTTP::Get.new(download_uri.path)
-
     log("downloading file: #{url}")
-
-    response = http.request(req)
 
     tempfile = Tempfile.create
 
-    File.write(tempfile, response.body)
+    require 'open-uri'
+    File.write tempfile, URI.open(url).read
 
     tempfile
   end
@@ -127,6 +126,7 @@ class CovidTweetProcess
 
     CSV.foreach(csv_path, encoding: @account['encoding']) do |row|
       next if row.length < 0
+      next if row[actualy_col_index].nil? # next if empty column
 
       row_date = row[actualy_col_index]&.strip rescue ''
       if row_date == base_date_str
@@ -145,8 +145,15 @@ class CovidTweetProcess
   end
 
   def twitter
-    twitter_yaml = YAML.load_file('twitter.yaml')
-    twitter_config = twitter_yaml[@account['prefecture']]
+    twitter_config = nil
+    begin
+      twitter_yaml = YAML.load_file('twitter.yaml')
+      twitter_config = twitter_yaml[@account['prefecture']]
+    rescue StandardError => e
+      log('twitter setting is not found', level: :warn)
+      log(e, level: :warn)
+      raise e
+    end
     Twitter::REST::Client.new do |config|
       config.consumer_key = twitter_config['consumer_key']
       config.consumer_secret = twitter_config['consumer_secret']
