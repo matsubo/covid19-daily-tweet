@@ -82,6 +82,7 @@ class CovidTweetProcess
         @twitter.update(message)
       end
 
+      FileUtils.chmod(0644, tempfile)
       FileUtils.mv(tempfile, archive_file)
     rescue CSV::MalformedCSVError => e
       log(e, level: :warn)
