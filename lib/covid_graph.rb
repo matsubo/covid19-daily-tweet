@@ -154,6 +154,6 @@ class CovidGraph
 
   def colors(categories)
     require 'json'
-    JSON.parse(File.open('colors.json')).values[0, categories.size]
+    JSON.parse(File.read('colors.json')).values[0, categories.size]
   end
 end
