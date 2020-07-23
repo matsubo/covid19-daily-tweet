@@ -91,7 +91,7 @@ class CovidGraph
 
       date_string = row[actualy_col_index].gsub(/[月日]/, '/') # 群馬県対策
       date = Date.parse(date_string) rescue next
-      age = (row[age_column_index] || '不明').strip
+      age = (row[age_column_index] || '不明').strip.tr('０-９ａ-ｚＡ-Ｚ','0-9a-zA-Z').gsub(/[\r\n]/,"")
 
       dataset[date] ||= {}
       dataset[date][age] = (dataset[date][age] || 0) + 1
