@@ -21,7 +21,7 @@ RSpec.describe CovidTweetProcess do
       context '0, 0' do
         let(:base_day_count) { 0 }
         let(:prev_day_count) { 0 }
-        let(:output) { '本日の新規陽性者数は0人です。（前日比 ±0人） #covid19 #東京都' }
+        let(:output) { '本日の新規陽性者数は0人です。（前日比 ±0人） #covid19 #東京都 #新型コロナウイルス' }
 
         it 'should match the response' do
           expect(CovidTweetProcess.new(account).send(:get_message, prefecture, base_day_count, prev_day_count)).to eq output
@@ -30,7 +30,7 @@ RSpec.describe CovidTweetProcess do
       context '20, 30' do
         let(:base_day_count) { 20 }
         let(:prev_day_count) { 30 }
-        let(:output) { '本日の新規陽性者数は20人です。（前日比 -10人,-34%） #covid19 #東京都' }
+        let(:output) { '本日の新規陽性者数は20人です。（前日比 -10人,-34%） #covid19 #東京都 #新型コロナウイルス' }
 
         it 'should match the response' do
           expect(CovidTweetProcess.new(account).send(:get_message, prefecture, base_day_count, prev_day_count)).to eq output
@@ -39,7 +39,7 @@ RSpec.describe CovidTweetProcess do
       context '30, 20' do
         let(:base_day_count) { 30 }
         let(:prev_day_count) { 20 }
-        let(:output) { '本日の新規陽性者数は30人です。（前日比 +10人,+50%） #covid19 #東京都' }
+        let(:output) { '本日の新規陽性者数は30人です。（前日比 +10人,+50%） #covid19 #東京都 #新型コロナウイルス' }
 
         it 'should match the response' do
           expect(CovidTweetProcess.new(account).send(:get_message, prefecture, base_day_count, prev_day_count)).to eq output
@@ -48,7 +48,7 @@ RSpec.describe CovidTweetProcess do
       context '30, 20' do
         let(:base_day_count) { 1 }
         let(:prev_day_count) { 0 }
-        let(:output) { '本日の新規陽性者数は1人です。（前日比 +1人） #covid19 #東京都' }
+        let(:output) { '本日の新規陽性者数は1人です。（前日比 +1人） #covid19 #東京都 #新型コロナウイルス' }
 
         it 'should match the response' do
           expect(CovidTweetProcess.new(account).send(:get_message, prefecture, base_day_count, prev_day_count)).to eq output

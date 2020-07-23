@@ -172,11 +172,11 @@ class CovidTweetProcess
 
     if base_day_count == 0 || prev_day_count == 0
       signal = get_signal(diff)
-      format('本日の新規陽性者数は%d人です。（前日比 %s%s人） #covid19 #%s', base_day_count, signal, diff.abs, prefecture)
+      format('本日の新規陽性者数は%d人です。（前日比 %s%s人） #covid19 #%s #新型コロナウイルス', base_day_count, signal, diff.abs, prefecture)
     else
       percent = (diff * 100 / prev_day_count).abs.to_i.to_s + '%'
       signal = get_signal(diff)
-      format('本日の新規陽性者数は%s人です。（前日比 %s%s人,%s%s） #covid19 #%s', base_day_count, signal, diff.abs, signal, percent, prefecture)
+      format('本日の新規陽性者数は%s人です。（前日比 %s%s人,%s%s） #covid19 #%s #新型コロナウイルス', base_day_count, signal, diff.abs, signal, percent, prefecture)
     end
   end
 
