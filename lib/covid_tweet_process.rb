@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require_relative 'covid_graph'
+
 # Make a tweet of today's report.
 # ```
 # require 'bundler/setup'
@@ -157,7 +159,7 @@ class CovidTweetProcess
   end
 
   def archive_file
-    File.join(DOWNLOAD_DIR, @account['prefecture'] + Time.now.strftime('%Y%m%d') + '.csv')
+    File.join(DOWNLOAD_DIR, @prefecture + Time.now.strftime('%Y%m%d') + '.csv')
   end
 
   def get_message(prefecture, base_day_count, prev_day_count)
@@ -174,7 +176,7 @@ class CovidTweetProcess
   end
 
   def log(message, level: :info)
-    @logger.send(level, "[#{@account['prefecture']}]: #{message}")
+    @logger.send(level, "[#{@prefecture}]: #{message}")
   end
 
   def get_signal(diff)
