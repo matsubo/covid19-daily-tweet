@@ -8,8 +8,9 @@ require_relative 'covid_graph'
 # Bundler.require
 #
 # require 'yaml'
-# account = YAML.load_file('settings.yaml')['accounts']['tokyo']
-# CovidTweetProcess.new(account).check_and_tweet
+# prefecture = 'tokyo'
+# account = YAML.load_file('settings.yaml')['accounts'][prefecture]
+# CovidTweetProcess.new(prefecture, account).check_and_tweet
 #
 # ````
 class CovidTweetProcess
