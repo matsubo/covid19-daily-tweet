@@ -71,7 +71,6 @@ class CovidTweetProcess
       message = get_message(@account['prefecture_ja'], results[:base_day_count], results[:prev_day_count])
 
       log(message)
-
       begin
         # tweet with media
         twitter.update_with_media(message, CovidGraph.new(tempfile, @account).create)
