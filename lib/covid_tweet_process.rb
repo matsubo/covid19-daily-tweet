@@ -8,7 +8,7 @@ require_relative 'covid_graph'
 # Bundler.require
 #
 # require 'yaml'
-# account = YAML.load_file('settings.yaml')['accounts'][4]
+# account = YAML.load_file('settings.yaml')['accounts']['tokyo']
 # CovidTweetProcess.new(account).check_and_tweet
 #
 # ````
@@ -24,9 +24,9 @@ class CovidTweetProcess
   # Time of the day to start crawling
   HOURS_TO_START = 16
 
-  def initialize(account)
+  def initialize(prefecture, account)
+    @prefecture = prefecture
     @account = account
-    @twitter = twitter
     @logger = Logger.new((STDOUT unless ENV['TEST']))
   end
 
@@ -76,13 +76,13 @@ class CovidTweetProcess
 
       begin
         # tweet with media
-        @twitter.update_with_media(message, CovidGraph.new(tempfile, @account).create)
+        twitter.update_with_media(message, CovidGraph.new(tempfile, @account).create)
       rescue StandardError => e
         log(e)
-        @twitter.update(message)
+        twitter.update(message)
       end
 
-      FileUtils.chmod(0644, tempfile)
+      FileUtils.chmod('a+r', tempfile)
       FileUtils.mv(tempfile, archive_file)
     rescue CSV::MalformedCSVError => e
       log(e, level: :warn)
@@ -146,15 +146,11 @@ class CovidTweetProcess
   end
 
   def twitter
-    twitter_config = nil
-    begin
-      twitter_yaml = YAML.load_file('twitter.yaml')
-      twitter_config = twitter_yaml[@account['prefecture']]
-    rescue StandardError => e
-      log('twitter setting is not found', level: :warn)
-      log(e, level: :warn)
-      raise e
-    end
+    twitter_yaml = YAML.load_file('twitter.yaml')
+    twitter_config = twitter_yaml[@prefecture]
+
+    raise 'twitter setting is not found' unless twitter_config
+
     Twitter::REST::Client.new do |config|
       config.consumer_key = twitter_config['consumer_key']
       config.consumer_secret = twitter_config['consumer_secret']
