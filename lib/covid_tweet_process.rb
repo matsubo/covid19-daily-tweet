@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require_relative 'covid_graph'
-
 # Make a tweet of today's report.
 # ```
 # require 'bundler/setup'
