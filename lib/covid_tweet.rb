@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require_relative 'covid_tweet_process'
-
 # Make a tweet of today's report.
 class CovidTweet
   def main

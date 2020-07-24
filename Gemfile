@@ -11,6 +11,14 @@ gem 'thread'
 gem 'twitter'
 gem 'yaml'
 
-gem 'pry-byebug', require: false
-gem 'rspec', require: false
-gem 'rubocop', require: false
+group :development do
+  gem 'pry-byebug', require: false
+  gem 'rspec', require: false
+  gem 'rubocop', require: false
+end
+group :test do
+  gem 'simplecov', require: false
+  gem 'timecop', require: false
+  gem 'vcr', require: false
+  gem 'webmock', require: false
+end

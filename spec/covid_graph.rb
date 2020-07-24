@@ -6,7 +6,8 @@ Bundler.require
 require_relative '../lib/covid_graph'
 
 RSpec.describe CovidGraph do
-  let(:account) { YAML.load_file('settings.yaml')['accounts'][2] }
+  let(:prefecture) { 'tokyo' }
+  let(:account) { YAML.load_file('settings.yaml')['accounts'][prefecture] }
 
   describe '#create' do
     it 'should not raise error' do
