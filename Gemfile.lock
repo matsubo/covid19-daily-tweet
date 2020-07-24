@@ -14,6 +14,8 @@ GEM
     byebug (11.1.3)
     coderay (1.1.3)
     concurrent-ruby (1.1.6)
+    crack (0.4.3)
+      safe_yaml (~> 1.0.0)
     csv (3.1.6)
       stringio (>= 0.1.3)
     diff-lcs (1.4.4)
@@ -28,6 +30,7 @@ GEM
     gruff (0.10.0)
       histogram
       rmagick
+    hashdiff (1.0.1)
     histogram (0.2.4.1)
     http (4.4.1)
       addressable (~> 2.3)
@@ -89,6 +92,7 @@ GEM
     rubocop-ast (0.2.0)
       parser (>= 2.7.0.1)
     ruby-progressbar (1.10.1)
+    safe_yaml (1.0.5)
     simple_oauth (0.3.1)
     simplecov (0.18.5)
       docile (~> 1.1)
@@ -114,6 +118,11 @@ GEM
       unf_ext
     unf_ext (0.0.7.7)
     unicode-display_width (1.7.0)
+    vcr (6.0.0)
+    webmock (3.8.3)
+      addressable (>= 2.3.6)
+      crack (>= 0.3.2)
+      hashdiff (>= 0.4.0, < 2.0.0)
     yaml (0.1.0)
     zeitwerk (2.4.0)
 
@@ -131,6 +140,8 @@ DEPENDENCIES
   simplecov
   thread
   twitter
+  vcr
+  webmock
   yaml
 
 BUNDLED WITH
