@@ -96,6 +96,7 @@ class CovidGraph
       age.gsub!('\'-', '不明') # for tokyo
       age.gsub!('-', '不明')
       age.gsub!('ー', '不明')
+      age.gsub!('−', '不明')
 
       dataset[date] ||= {}
       dataset[date][age] = (dataset[date][age] || 0) + 1
