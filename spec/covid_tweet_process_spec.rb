@@ -7,7 +7,7 @@ RSpec.describe CovidTweetProcess do
   let(:account) { YAML.load_file('settings.yaml')['accounts'][prefecture] }
 
   describe '#check_and_tweet' do
-    it 'should not raise error'  do
+    it 'should not raise error' do
       covid_tweet = CovidTweetProcess.new(prefecture, account)
       expect do
         VCR.use_cassette('no_tweet_csv_download') do

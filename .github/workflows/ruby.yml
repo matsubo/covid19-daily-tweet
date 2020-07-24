@@ -26,9 +26,9 @@ jobs:
       run: bundle install
     - name: Copy dummy setting
       run: cp twitter.yaml.template twitter.yaml
-    - name: Run tests
+    - name: Run rubocop
       run: bundle exec rubocop
-    - name: Run tests
+    - name: Run rspec
       run: bundle exec rspec
       env:
         TEST: true

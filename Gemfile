@@ -18,7 +18,7 @@ group :development do
 end
 group :test do
   gem 'simplecov', require: false
+  gem 'timecop', require: false
   gem 'vcr', require: false
   gem 'webmock', require: false
-  gem 'timecop', require: false
 end
