@@ -26,7 +26,7 @@ class CovidGraph
     g = Gruff::StackedBar.new
     g.colors = colors(get_categories(dataset))
     g.font = './vendor/HackGen/HackGen-Regular.ttf'
-    g.legend_font_size = 15
+    g.legend_font_size = 14
     g.title = format('%{area}のCOVID-19新規陽性者数', area: @account['prefecture_ja'])
 
     g.labels = eliminate_label(dates)

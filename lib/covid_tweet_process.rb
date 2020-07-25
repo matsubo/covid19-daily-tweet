@@ -23,7 +23,7 @@ class CovidTweetProcess
   DOWNLOAD_DIR = 'downloads'
 
   # Time of the day to start crawling
-  HOURS_TO_START = 16
+  HOURS_TO_START = 14
 
   def initialize(prefecture, account)
     @prefecture = prefecture
