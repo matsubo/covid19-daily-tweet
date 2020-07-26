@@ -74,7 +74,7 @@ accounts:
     csv: https://www.pref.mie.lg.jp/common/content/000896797.csv
     column: 5
     age_column: 8
-    date: '%Y/%m/%d'
+    date: '%Y/%-m/%-d'
     encoding: 'Shift_JIS:UTF-8'
   gifu:
     prefecture_ja: 岐阜県
