@@ -97,6 +97,13 @@ accounts:
     age_column: 7
     date: '%Y/%-m/%-d'
     encoding: 'BOM|UTF-8'
+  tokushima:
+    prefecture_ja: 徳島県
+    csv: https://ouropendata.jp/dataset/2192/resource/6170/%E9%99%BD%E6%80%A7%E6%82%A3%E8%80%85%E5%B1%9E%E6%80%A7.csv
+    column: 4
+    age_column: 7
+    date: '%Y-%m-%d'
+    encoding: 'BOM|UTF-8'
   okayama:
     prefecture_ja: 岡山県
     csv: http://www.okayama-opendata.jp/ckan/dataset/e6b3c1d2-2f1f-4735-b36e-e45d36d94761/resource/c6503ebc-b2e9-414c-aae7-7374f4801e21/download/kansenshashousaijouhou0420.csv
