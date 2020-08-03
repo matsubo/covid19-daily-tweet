@@ -83,6 +83,13 @@ accounts:
     age_column: 8
     date: '%Y-%m-%d'
     encoding: 'Shift_JIS:UTF-8'
+  shizuoka:
+    prefecture_ja: 静岡県
+    csv: https://opendata.pref.shizuoka.jp/dataset/8167/resource/46279/220001_shizuoka_covid19_patients.csv
+    column: 5
+    age_column: 8
+    date: '%Y-%-m-%-d'
+    encoding: 'Shift_JIS:UTF-8'
   yamaguchi:
     prefecture_ja: 山口県
     csv: https://yamaguchi-opendata.jp/ckan/dataset/f6e5cff9-ae43-4cd9-a398-085187277edf/resource/f56e6552-4c5d-4ec6-91c0-090f553e0aea/download/350001_yamaguchi_covid19_patients.csv
