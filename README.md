@@ -31,7 +31,7 @@ Manually
 % docker-compose run app bundle exec ruby main.rb
 ```
 
-Damon in background
+Daemon in background
 ```
 % docker-compose up -d 
 ```
