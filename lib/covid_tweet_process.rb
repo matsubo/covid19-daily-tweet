@@ -28,7 +28,7 @@ class CovidTweetProcess
   def initialize(prefecture, account)
     @prefecture = prefecture
     @account = account
-    @logger = Logger.new((STDOUT unless ENV['TEST']))
+    @logger = Logger.new(($stdout unless ENV['TEST']))
   end
 
   # 常駐
@@ -160,7 +160,7 @@ class CovidTweetProcess
   end
 
   def archive_file
-    File.join(DOWNLOAD_DIR, @prefecture + Time.now.strftime('%Y%m%d') + '.csv')
+    File.join(DOWNLOAD_DIR, format('%s%s.csv', @prefecture, Time.now.strftime('%Y%m%d')))
   end
 
   def get_message(prefecture, base_day_count, prev_day_count)
@@ -170,7 +170,7 @@ class CovidTweetProcess
       signal = get_signal(diff)
       format('本日の新規陽性者数は%d人です。（前日比 %s%s人） #covid19 #%s #新型コロナウイルス', base_day_count, signal, diff.abs, prefecture)
     else
-      percent = (diff * 100 / prev_day_count).abs.to_i.to_s + '%'
+      percent = format('%s%%', (diff * 100 / prev_day_count).abs.to_i.to_s)
       signal = get_signal(diff)
       format('本日の新規陽性者数は%s人です。（前日比 %s%s人,%s%s） #covid19 #%s #新型コロナウイルス', base_day_count, signal, diff.abs, signal, percent, prefecture)
     end
