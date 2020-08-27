@@ -10,7 +10,6 @@
 # See https://docs.rubocop.org/rubocop/configuration
 AllCops:
   TargetRubyVersion: 2.7
-AllCops:
   NewCops: enable
   
 Style/AsciiComments:

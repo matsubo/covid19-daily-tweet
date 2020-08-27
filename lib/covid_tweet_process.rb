@@ -45,7 +45,13 @@ class CovidTweetProcess
         sleep((0.day.since.midnight + HOURS_TO_START.hour).to_i - Time.now.to_i)
       end
 
-      unless check_and_tweet
+      begin
+        result = check_and_tweet
+      rescue StandardError => e
+        log(e, level: :error)
+      end
+
+      unless result
         log('sleeping 10 min')
         sleep(10.minutes.to_i)
       end
