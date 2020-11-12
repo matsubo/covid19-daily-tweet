@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require_relative 'covid_graph'
+require_relative 'wordpress'
 
 # Make a tweet of today's report.
 # ```
@@ -77,16 +78,27 @@ class CovidTweetProcess
       return false unless results[:base_day_count].positive?
 
       # Tweet if today's data is updated.
-      message = get_message(@account['prefecture_ja'], results[:base_day_count], results[:prev_day_count])
+      message = get_message(@accouet['prefecture_ja'], results[:base_day_count], results[:prev_day_count])
 
       log(message)
+
       begin
         # tweet with media
-        twitter.update_with_media(message, CovidGraph.new(tempfile, @account).create)
+        file = CovidGraph.new(tempfile, @account).create
+        Wordpress.new(@prefecture).post(message, file)
+      rescue StandardError => e
+        log(e)
+      end
+
+      begin
+        # tweet with media
+        file = CovidGraph.new(tempfile, @account).create
+        twitter.update_with_media(message, file)
       rescue StandardError => e
         log(e)
         twitter.update(message)
       end
+
 
       FileUtils.chmod('a+r', tempfile)
       FileUtils.mv(tempfile, archive_file)

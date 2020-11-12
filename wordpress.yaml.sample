@@ -1,0 +1,4 @@
+login:
+  endpoint: 'https://example.com/wp-json/wp/v2'
+  user: username
+  password: 'password'
