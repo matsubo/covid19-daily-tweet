@@ -111,7 +111,7 @@ class CovidTweetProcess
     tempfile = Tempfile.create
 
     require 'open-uri'
-    File.write tempfile, URI.open(url).read
+    File.write tempfile, Faraday.get(url).body
 
     tempfile
   end
