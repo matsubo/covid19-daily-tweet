@@ -20,23 +20,9 @@ class Wordpress
     # post image
     wp_api_url = wordpress_yaml['login']['endpoint']
 
-    setting = {
-      tokyo: {
-        prefecture_jp: '東京都',
-        category: '2',
-      },
-      kanagawa: {
-        prefecture_jp: '神奈川都',
-        category: '2',
-      }
-    }
-
-    raise 'no setting' unless setting[@key]
-
     prefecture = @key.to_s
-    prefecture_jp = setting[@key][:prefecture_jp]
-    category = setting[@key][:category]
-
+    prefecture_jp = wordpress_yaml[:parameter][@key][:prefecture_jp]
+    category = wordpress_yaml[:parameter][@key][:category]
 
     date_jp = Date.today.strftime('%Y年%m月%d日')
     date_yyyymmdd = Date.today.strftime('%Y-%m-%d')
