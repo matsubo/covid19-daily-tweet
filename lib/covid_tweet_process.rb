@@ -70,15 +70,20 @@ class CovidTweetProcess
     end
 
     # Check the today's data is updated
-    begin
+#    begin
       results = analyze_csv(tempfile)
+
+#    rescue CSV::MalformedCSVError => e
+#      log(e, level: :warn)
+#      return false
+#    end
 
       log(results)
 
       return false unless results[:base_day_count].positive?
 
       # Tweet if today's data is updated.
-      message = get_message(@accouet['prefecture_ja'], results[:base_day_count], results[:prev_day_count])
+      message = get_message(@account['prefecture_ja'], results[:base_day_count], results[:prev_day_count])
 
       log(message)
 
@@ -94,17 +99,13 @@ class CovidTweetProcess
         # tweet with media
         file = CovidGraph.new(tempfile, @account).create
         twitter.update_with_media(message, file)
+
       rescue StandardError => e
         log(e)
-        twitter.update(message)
       end
 
       FileUtils.chmod('a+r', tempfile)
       FileUtils.mv(tempfile, archive_file)
-    rescue CSV::MalformedCSVError => e
-      log(e, level: :warn)
-      return false
-    end
 
     true
   end
@@ -142,7 +143,8 @@ class CovidTweetProcess
 
     actualy_col_index = @account['column'].to_i - 1
 
-    CSV.foreach(csv_path, encoding: @account['encoding']) do |row|
+    CSV.foreach(csv_path, headers: true, encoding: @account['encoding']) do |row|
+
       next if row.length < 0
       next if row[actualy_col_index].nil? # next if empty column
 
