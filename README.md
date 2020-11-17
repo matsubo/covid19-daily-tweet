@@ -21,6 +21,8 @@
 ```
 % cp twitter.yaml.template twitter.yaml
 % vi twitter.yaml
+% cp wordpress.yaml.template wordpress.yaml
+% vi wordpress.yaml
 % docker-compose run --rm app bundle
 ```
 

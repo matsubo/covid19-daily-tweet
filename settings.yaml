@@ -8,7 +8,7 @@ accounts:
     encoding: 'Shift_JIS:UTF-8'
   aomori:
     prefecture_ja: 青森県
-    csv: https://opendata.pref.aomori.lg.jp/dataset/1531/resource/11826/01_20200827_%E6%A4%9C%E6%9F%BB%E9%99%BD%E6%80%A7%E8%80%85%E6%95%B0.csv
+    csv: https://opendata.pref.aomori.lg.jp/dataset/1531/resource/12354/02_20201111_%E9%99%BD%E6%80%A7%E6%82%A3%E8%80%85%E9%96%A2%E4%BF%82.csv
     column: 5
     age_column: 8
     date: '%Y年%-m月%-d日'
@@ -36,7 +36,7 @@ accounts:
     encoding: 'BOM|UTF-8'
   yamagata:
     prefecture_ja: 山形県
-    csv: https://www.pref.yamagata.jp/ou/kenkofukushi/090001/20130425/siryou/060003_yamagata_covid19_patients_0717.csv
+    csv: https://www.pref.yamagata.jp/documents/10045/060003_yamagata_covid19_patients_1112.csv
     column: 4
     age_column: 7
     date: '%Y/%-m/%-d'
@@ -78,7 +78,7 @@ accounts:
     encoding: 'Shift_JIS:UTF-8'
   gifu:
     prefecture_ja: 岐阜県
-    csv: https://data.gifu-opendata.pref.gifu.lg.jp/dataset/4661bf9d-6f75-43fb-9d59-f02eb84bb6e3/resource/9c35ee55-a140-4cd8-a266-a74edf60aa80/download/210005gifucovid19patients.csv
+    csv: https://gifu-opendata.pref.gifu.lg.jp/dataset/4661bf9d-6f75-43fb-9d59-f02eb84bb6e3/resource/9c35ee55-a140-4cd8-a266-a74edf60aa80/download/210005_gifu_covid19_patients.csv
     column: 5
     age_column: 8
     date: '%Y-%m-%d'
@@ -134,7 +134,7 @@ accounts:
     encoding: 'BOM|UTF-8'
   kumamoto:
     prefecture_ja: 熊本県
-    csv: "https://www.pref.kumamoto.jp/common/UploadFileOutput.ashx?c_id=3&id=22038&sub_id=115&flid=241242"
+    csv: "https://www.pref.kumamoto.jp/common/UploadFileOutput.ashx?c_id=3&id=22038&sub_id=249&flid=258665"
     column: 5
     age_column: 8
     date: '%Y-%m-%d'
@@ -148,8 +148,9 @@ accounts:
     encoding: 'BOM|UTF-8'
   nagasaki:
     prefecture_ja: 長崎県
-    csv: http://data.bodik.jp/dataset/09951e04-dc5d-42e9-9a49-37443be6787e/resource/de7ce61e-1849-47a1-b758-bca3f809cdf8/download/20200716prefnagasakicovidpatients.csv
+    csv: "http://data.bodik.jp/dataset/09951e04-dc5d-42e9-9a49-37443be6787e/resource/de7ce61e-1849-47a1-b758-bca3f809cdf8/download/20200716prefnagasakicovidpatients.csv"
     column: 5
     age_column: 9
     date: '%Y-%-m-%-d'
     encoding: 'BOM|UTF-8'
+

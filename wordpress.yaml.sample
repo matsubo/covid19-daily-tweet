@@ -1,0 +1,148 @@
+login:
+  endpoint: 'https://example.com/wp-json/wp/v2'
+  user: username
+  password: 'password'
+parameter:
+  hokkaido:
+    category: 5
+    prefecture_jp: 北海道
+  aomori:
+    category: 6
+    prefecture_jp: 青森県
+  iwate:
+    category: 8
+    prefecture_jp: 宮城県
+  miyagi:
+    category: 9
+    prefecture_jp: 秋田県
+  akita:
+    category: 9
+    prefecture_jp: 秋田県
+  yamagata:
+    category: 10
+    prefecture_jp: 山形県
+  fukushima:
+    category: 11
+    prefecture_jp: 福島県
+  ibaraki:
+    category: 12
+    prefecture_jp: 茨城県
+  tochigi:
+    category: 13
+    prefecture_jp: 栃木県
+  gunma:
+    category: 14
+    prefecture_jp: 群馬県
+  saitama:
+    category: 15
+    prefecture_jp: 埼玉県
+  chiba:
+    category: 16
+    prefecture_jp: 千葉県
+  tokyo:
+    category: 2
+    prefecture_jp: 東京都
+  kanagawa:
+    category: 3
+    prefecture_jp: 神奈川県
+  niigata:
+    category: 17
+    prefecture_jp: 新潟県
+  toyama:
+    category: 18
+    prefecture_jp: 富山県
+  ishikawa:
+    category: 19
+    prefecture_jp: 石川県
+  fukui:
+    category: 20
+    prefecture_jp: 福井県
+  yamanashi:
+    category: 21
+    prefecture_jp: 山梨県
+  nagano:
+    category: 22
+    prefecture_jp: 長野県
+  gifu:
+    category: 23
+    prefecture_jp: 岐阜県
+  shizuoka:
+    category: 24
+    prefecture_jp: 静岡県
+  aichi:
+    category: 25
+    prefecture_jp: 愛知県
+  mie:
+    category: 26
+    prefecture_jp: 三重県
+  shiga:
+    category: 27
+    prefecture_jp: 滋賀県
+  kyoto:
+    category: 28
+    prefecture_jp: 京都府
+  osaka:
+    category: 29
+    prefecture_jp: 大阪府
+  hyogo:
+    category: 30
+    prefecture_jp: 兵庫県
+  nara:
+    category: 31
+    prefecture_jp: 奈良県
+  wakayama:
+    category: 32
+    prefecture_jp: 和歌山県
+  tottori:
+    category: 33
+    prefecture_jp: 鳥取県
+  shimane:
+    category: 34
+    prefecture_jp: 島根県
+  okayama:
+    category: 35
+    prefecture_jp: 岡山県
+  hiroshima:
+    category: 36
+    prefecture_jp: 広島県
+  yamaguchi:
+    category: 37
+    prefecture_jp: 山口県
+  tokushima:
+    category: 38
+    prefecture_jp: 徳島県
+  kagawa:
+    category: 39
+    prefecture_jp: 香川県
+  ehime:
+    category: 40
+    prefecture_jp: 愛媛県
+  kochi:
+    category: 41
+    prefecture_jp: 高知県
+  fukuoka:
+    category: 49
+    prefecture_jp: 福岡県
+  saga:
+    category: 42
+    prefecture_jp: 福岡県
+  nagasaki:
+    category: 43
+    prefecture_jp: 佐賀県
+  kumamoto:
+    category: 44
+    prefecture_jp: 長崎県
+  oita:
+    category: 45
+    prefecture_jp: 熊本県
+  miyazaki:
+    category: 46
+    prefecture_jp: 大分県
+  kagoshima:
+    category: 47
+    prefecture_jp: 宮崎県
+  okinawa:
+    category: 48
+    prefecture_jp: 鹿児島県
+
+

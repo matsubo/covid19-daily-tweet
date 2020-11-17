@@ -36,3 +36,5 @@ Lint/NonDeterministicRequireOrder:
   Enabled: false
 Lint/DuplicateBranch:
   Enabled: false
+Style/StringConcatenation:
+  Enabled: false
