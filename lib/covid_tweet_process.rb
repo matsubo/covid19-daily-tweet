@@ -71,42 +71,40 @@ class CovidTweetProcess
     end
 
     # Check the today's data is updated
-#    begin
+    begin
       results = analyze_csv(tempfile)
+    rescue CSV::MalformedCSVError => e
+      log(e, level: :warn)
+      return false
+    end
 
-#    rescue CSV::MalformedCSVError => e
-#      log(e, level: :warn)
-#      return false
-#    end
+    return false unless results[:base_day_count].positive?
 
-      log(results)
+    log(results)
 
-      # Tweet if today's data is updated.
-      message = get_message(@account['prefecture_ja'], results[:base_day_count], results[:prev_day_count])
+    # Tweet if today's data is updated.
+    message = get_message(@account['prefecture_ja'], results[:base_day_count], results[:prev_day_count])
 
-      log(message)
+    log(message)
 
-      begin
-        # tweet with media
-        file = CovidGraph.new(tempfile, @account).create
-        Wordpress.new(@prefecture, @base_date).post(message, file)
-      rescue StandardError => e
-        log(e)
-      end
+    begin
+      # tweet with media
+      file = CovidGraph.new(tempfile, @account).create
+      Wordpress.new(@prefecture, @base_date).post(message, file)
+    rescue StandardError => e
+      log(e)
+    end
 
-      if results[:base_day_count].positive?
-        begin
-          # tweet with media
-          file = CovidGraph.new(tempfile, @account).create
-          twitter.update_with_media(message, file)
+    begin
+      # tweet with media
+      file = CovidGraph.new(tempfile, @account).create
+      twitter.update_with_media(message, file)
+    rescue StandardError => e
+      log(e)
+    end
 
-        rescue StandardError => e
-          log(e)
-        end
-      end
-
-      FileUtils.chmod('a+r', tempfile)
-      FileUtils.mv(tempfile, archive_file)
+    FileUtils.chmod('a+r', tempfile)
+    FileUtils.mv(tempfile, archive_file)
 
     true
   end
@@ -131,7 +129,6 @@ class CovidTweetProcess
 
   # CSVファイルを読み込み、基準日と前日の人数を取得する
   def analyze_csv(csv_path)
-
     # get date formatted
     base_date_str = @base_date.strftime(@account['date'])
     # get previous date
@@ -144,7 +141,6 @@ class CovidTweetProcess
     actualy_col_index = @account['column'].to_i - 1
 
     CSV.foreach(csv_path, headers: true, encoding: @account['encoding']) do |row|
-
       next if row.length < 0
       next if row[actualy_col_index].nil? # next if empty column
 

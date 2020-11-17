@@ -6,6 +6,9 @@ require 'json'
 require 'date'
 require 'logger'
 
+#
+# Upload a graph image and use it in the post
+#
 class Wordpress
   def initialize(key, base_date = nil)
     @key = key
@@ -27,7 +30,6 @@ class Wordpress
     category = wordpress_yaml['parameter'][@key]['category']
 
     date_jp = @base_date.to_date.strftime('%Y年%m月%d日')
-    date_yyyymmdd = @base_date.to_date.strftime('%Y-%m-%d')
 
     connection = Faraday.new(wp_api_url, { ssl: { verify: false } }) do |builder|
       builder.request :multipart
@@ -55,11 +57,11 @@ class Wordpress
 <!-- /wp:image -->
 
                   ',
-                    message,
-                    response['id'],
-                    response['media_details']['sizes']['full']['source_url'],
-                    response['media_details']['sizes']['full']['source_url'],
-                    response['id'])
+                  message,
+                  response['id'],
+                  response['media_details']['sizes']['full']['source_url'],
+                  response['media_details']['sizes']['full']['source_url'],
+                  response['id'])
 
     @logger.debug(html)
 
@@ -70,7 +72,7 @@ class Wordpress
       categories: category,
       slug: prefecture,
       featured_media: response['id'],
-      date: @base_date.strftime("%Y-%m-%dT%H:%M:%S"),
+      date: @base_date.strftime('%Y-%m-%dT%H:%M:%S'),
       tags: '1'
     }.to_json
     response = Faraday.post(wp_api_url + '/posts', post_data, header)
