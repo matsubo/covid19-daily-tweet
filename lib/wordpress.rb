@@ -7,9 +7,10 @@ require 'date'
 require 'logger'
 
 class Wordpress
-  def initialize(key)
+  def initialize(key, base_date = nil)
     @key = key
     @logger = Logger.new(($stdout unless ENV['TEST']))
+    @base_date = base_date || Time.now
   end
 
   def post(message, file)
@@ -25,8 +26,8 @@ class Wordpress
     prefecture_jp = wordpress_yaml['parameter'][@key]['prefecture_jp']
     category = wordpress_yaml['parameter'][@key]['category']
 
-    date_jp = Date.today.strftime('%Y年%m月%d日')
-    date_yyyymmdd = Date.today.strftime('%Y-%m-%d')
+    date_jp = @base_date.to_date.strftime('%Y年%m月%d日')
+    date_yyyymmdd = @base_date.to_date.strftime('%Y-%m-%d')
 
     connection = Faraday.new(wp_api_url, { ssl: { verify: false } }) do |builder|
       builder.request :multipart
@@ -60,7 +61,7 @@ class Wordpress
                     response['media_details']['sizes']['full']['source_url'],
                     response['id'])
 
-    @logger.info(html)
+    @logger.debug(html)
 
     post_data = {
       title: format('%s %sの新型コロナウイルス新規陽性者数', date_jp, prefecture_jp),
@@ -69,9 +70,13 @@ class Wordpress
       categories: category,
       slug: prefecture,
       featured_media: response['id'],
+      date: @base_date.strftime("%Y-%m-%dT%H:%M:%S"),
       tags: '1'
     }.to_json
     response = Faraday.post(wp_api_url + '/posts', post_data, header)
-    @logger.info(JSON.parse(response.body)['id'])
+
+    raise 'post failed: ' + JSON.parse(response.body).to_s unless response.status == 201
+
+    @logger.info(JSON.parse(response.body)['guid']['rendered'])
   end
 end

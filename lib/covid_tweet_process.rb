@@ -26,10 +26,11 @@ class CovidTweetProcess
   # Time of the day to start crawling
   HOURS_TO_START = 14
 
-  def initialize(prefecture, account)
+  def initialize(prefecture, account, base_date = nil)
     @prefecture = prefecture
     @account = account
     @logger = Logger.new(($stdout unless ENV['TEST']))
+    @base_date = base_date || Time.now
   end
 
   # 常駐
@@ -37,13 +38,13 @@ class CovidTweetProcess
     loop do
       if File.exist?(archive_file)
         log('Sleeping until tomorrow evening.')
-        sleep((1.day.since.midnight + HOURS_TO_START.hour).to_i - Time.now.to_i)
+        sleep((1.day.since.midnight + HOURS_TO_START.hour).to_i - @base_date.to_i)
       end
 
       if Time.now.hour < HOURS_TO_START
         log('Sleeping until today evening.')
 
-        sleep((0.day.since.midnight + HOURS_TO_START.hour).to_i - Time.now.to_i)
+        sleep((0.day.since.midnight + HOURS_TO_START.hour).to_i - @base_date.to_i)
       end
 
       begin
@@ -80,8 +81,6 @@ class CovidTweetProcess
 
       log(results)
 
-      return false unless results[:base_day_count].positive?
-
       # Tweet if today's data is updated.
       message = get_message(@account['prefecture_ja'], results[:base_day_count], results[:prev_day_count])
 
@@ -90,18 +89,20 @@ class CovidTweetProcess
       begin
         # tweet with media
         file = CovidGraph.new(tempfile, @account).create
-        Wordpress.new(@prefecture).post(message, file)
+        Wordpress.new(@prefecture, @base_date).post(message, file)
       rescue StandardError => e
         log(e)
       end
 
-      begin
-        # tweet with media
-        file = CovidGraph.new(tempfile, @account).create
-        twitter.update_with_media(message, file)
+      if results[:base_day_count].positive?
+        begin
+          # tweet with media
+          file = CovidGraph.new(tempfile, @account).create
+          twitter.update_with_media(message, file)
 
-      rescue StandardError => e
-        log(e)
+        rescue StandardError => e
+          log(e)
+        end
       end
 
       FileUtils.chmod('a+r', tempfile)
@@ -130,12 +131,11 @@ class CovidTweetProcess
 
   # CSVファイルを読み込み、基準日と前日の人数を取得する
   def analyze_csv(csv_path)
-    base_date = Time.now
 
     # get date formatted
-    base_date_str = base_date.strftime(@account['date'])
+    base_date_str = @base_date.strftime(@account['date'])
     # get previous date
-    prev_day = base_date.prev_day
+    prev_day = @base_date.prev_day
     prev_day_str = prev_day.strftime(@account['date'])
 
     prev_day_count = 0
@@ -179,7 +179,7 @@ class CovidTweetProcess
   end
 
   def archive_file
-    File.join(DOWNLOAD_DIR, format('%s%s.csv', @prefecture, Time.now.strftime('%Y%m%d')))
+    File.join(DOWNLOAD_DIR, format('%s%s.csv', @prefecture, @base_date.strftime('%Y%m%d')))
   end
 
   def get_message(prefecture, base_day_count, prev_day_count)
