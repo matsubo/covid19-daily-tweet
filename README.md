@@ -23,7 +23,6 @@
 % vi twitter.yaml
 % cp wordpress.yaml.template wordpress.yaml
 % vi wordpress.yaml
-% docker network create --driver bridge --ipv6 --subnet fd15:556::/64 --subnet 172.16.239.0/24 covid19-daily-tweet_aaa  --attachable
 % docker-compose run --rm app bundle
 ```
 
