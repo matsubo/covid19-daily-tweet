@@ -87,17 +87,15 @@ class CovidTweetProcess
 
     log(message)
 
+    file = CovidGraph.new(tempfile, @account).create
+
     begin
-      # tweet with media
-      file = CovidGraph.new(tempfile, @account).create
       Wordpress.new(@prefecture, @base_date).post(message, file)
     rescue StandardError => e
       log(e)
     end
 
     begin
-      # tweet with media
-      file = CovidGraph.new(tempfile, @account).create
       twitter.update_with_media(message, file)
     rescue StandardError => e
       log(e)
