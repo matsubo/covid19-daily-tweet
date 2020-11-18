@@ -87,7 +87,7 @@ class CovidTweetProcess
 
     log(message)
 
-    file = CovidGraph.new(tempfile, @account).create
+    file = CovidGraph.new(tempfile, @account, @base_date).create
 
     begin
       Wordpress.new(@prefecture, @base_date).post(message, file)

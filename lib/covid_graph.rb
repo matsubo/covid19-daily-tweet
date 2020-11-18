@@ -16,9 +16,10 @@
 # ```
 #
 class CovidGraph
-  def initialize(file, account)
+  def initialize(file, account, base_date = nil)
     @file = file
     @account = account
+    @base_date = base_date || Time.now
   end
 
   def create
@@ -51,7 +52,7 @@ class CovidGraph
     result = {}
     index = 0
     date = Date.new(2020, 1, 15)
-    while date <= Date.today
+    while date <= @base_date.to_date
       result[index] = date
       date += 1
       index += 1
@@ -63,9 +64,9 @@ class CovidGraph
   def eliminate_label(labels)
     index = 0
     labels.each do |key, date|
-      labels[key] = if Date.today == date
+      labels[key] = if @base_date.to_date == date
                       date.strftime('%-m/%-d')
-                    elsif !(index == 0 || index == (labels.count - 1) || index % 20 == 0) || Date.today - 20 < date
+                    elsif !(index == 0 || index == (labels.count - 1) || index % 20 == 0) || @base_date.to_date - 20 < date
                       ''
                     else
                       date.strftime('%-m/%-d')
