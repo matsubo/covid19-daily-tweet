@@ -6,9 +6,9 @@
 
 ## For Japanese 
 
-- [新型コロナウイルス感染症対策に関するオープンデータ項目定義書](https://docs.google.com/spreadsheets/d/1fJtqxqh_4OuUwq2LQ_WRx23fwcEB4hNL/edit#gid=1874865803)フォーマットで提供されている（またはプログラムにとって可読性の高いファイルが提供されている）都道府県のデータを10分に1回クロールして新規感染者がでた場合はTweetします。
+- [新型コロナウイルス感染症対策に関するオープンデータ項目定義書](https://docs.google.com/spreadsheets/d/1fJtqxqh_4OuUwq2LQ_WRx23fwcEB4hNL/edit#gid=1874865803)フォーマットで提供されている（またはプログラムにとって可読性の高いファイルが提供されている）都道府県のデータを10分に1回クロールして新規感染者がでた場合はTweetし、[Blog](https://covid19.teraren.com/)にも投稿します。
+- 運用しているTwitter Botは[神奈川県](https://twitter.com/covid19kanagawa)のみになります。その他の都道府県のアカウントはBanされてしまいました。
 - pull-requestやissueの内容の解決はウェルカムです。
-- 運用しているTwitter Botは[こちら](https://covid19.teraren.com/)に一覧を掲載しています。
 
 ## For English
 
