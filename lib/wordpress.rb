@@ -29,7 +29,7 @@ class Wordpress
     prefecture_jp = wordpress_yaml['parameter'][@key]['prefecture_jp']
     category = wordpress_yaml['parameter'][@key]['category']
 
-    date_jp = @base_date.to_date.strftime('%Y年%m月%d日')
+    date_jp = @base_date.to_date.strftime('%Y年%-m月%-d日')
 
     connection = Faraday.new(wp_api_url, { ssl: { verify: false } }) do |builder|
       builder.request :multipart

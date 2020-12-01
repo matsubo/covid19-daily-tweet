@@ -30,7 +30,11 @@ class CovidTweetProcess
     @prefecture = prefecture
     @account = account
     @logger = Logger.new(($stdout unless ENV['TEST']))
-    @base_date = base_date || Time.now
+    @specified_base_date = base_date
+  end
+
+  def base_date
+    @specified_base_date || Time.now
   end
 
   # 常駐
@@ -38,13 +42,13 @@ class CovidTweetProcess
     loop do
       if File.exist?(archive_file)
         log('Sleeping until tomorrow evening.')
-        sleep((1.day.since.midnight + HOURS_TO_START.hour).to_i - @base_date.to_i)
+        sleep((1.day.since.midnight + HOURS_TO_START.hour).to_i - base_date.to_i)
       end
 
       if Time.now.hour < HOURS_TO_START
         log('Sleeping until today evening.')
 
-        sleep((0.day.since.midnight + HOURS_TO_START.hour).to_i - @base_date.to_i)
+        sleep((0.day.since.midnight + HOURS_TO_START.hour).to_i - base_date.to_i)
       end
 
       begin
@@ -87,10 +91,11 @@ class CovidTweetProcess
 
     log(message)
 
-    file = CovidGraph.new(tempfile, @account, @base_date).create
+    file = CovidGraph.new(tempfile, @account, base_date).create
 
     begin
-      Wordpress.new(@prefecture, @base_date).post(message, file)
+      log('posting to wordpress...')
+      Wordpress.new(@prefecture, base_date).post(message, file)
     rescue StandardError => e
       log(e)
     end
@@ -128,9 +133,9 @@ class CovidTweetProcess
   # CSVファイルを読み込み、基準日と前日の人数を取得する
   def analyze_csv(csv_path)
     # get date formatted
-    base_date_str = @base_date.strftime(@account['date'])
+    base_date_str = base_date.strftime(@account['date'])
     # get previous date
-    prev_day = @base_date.prev_day
+    prev_day = base_date.prev_day
     prev_day_str = prev_day.strftime(@account['date'])
 
     prev_day_count = 0
@@ -173,7 +178,7 @@ class CovidTweetProcess
   end
 
   def archive_file
-    File.join(DOWNLOAD_DIR, format('%s%s.csv', @prefecture, @base_date.strftime('%Y%m%d')))
+    File.join(DOWNLOAD_DIR, format('%s%s.csv', @prefecture, base_date.strftime('%Y%m%d')))
   end
 
   def get_message(prefecture, base_day_count, prev_day_count)
