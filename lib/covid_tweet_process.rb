@@ -101,6 +101,7 @@ class CovidTweetProcess
     end
 
     begin
+      log('tweeting...')
       twitter.update_with_media(message, file)
     rescue StandardError => e
       log(e)

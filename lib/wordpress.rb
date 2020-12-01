@@ -37,7 +37,14 @@ class Wordpress
       builder.adapter Faraday.default_adapter
     end
     connection.headers['Authorization'] = authorization
-    params = { file: Faraday::UploadIO.new(file, 'image/png') }
+
+    alt = format('%s %s 新型コロナウイルス新規陽性者数 グラフ', date_jp, prefecture_jp)
+    params = {
+      alt_text: alt,
+      title: alt,
+      description: alt,
+      file: Faraday::UploadIO.new(file, 'image/png')
+    }
 
     response = JSON.parse(connection.post('media', params).body)
 
@@ -53,7 +60,7 @@ class Wordpress
 <!-- /wp:paragraph -->
 
 <!-- wp:image {"id":%d,"sizeSlug":"large","linkDestination":"media"} -->
-<figure class="wp-block-image size-large"><a href="%s"><img src="%s" alt="" class="wp-image-%s"/></a></figure>
+<figure class="wp-block-image size-large"><a href="%s"><img src="%s" alt="%s" class="wp-image-%s"/></a></figure>
 <!-- /wp:image -->
 
                   ',
@@ -61,6 +68,7 @@ class Wordpress
                   response['id'],
                   response['media_details']['sizes']['full']['source_url'],
                   response['media_details']['sizes']['full']['source_url'],
+                  alt,
                   response['id'])
 
     @logger.debug(html)

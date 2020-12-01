@@ -8,7 +8,7 @@ accounts:
     encoding: 'Shift_JIS:UTF-8'
   aomori:
     prefecture_ja: 青森県
-    csv: https://opendata.pref.aomori.lg.jp/dataset/1531/resource/12354/02_20201111_%E9%99%BD%E6%80%A7%E6%82%A3%E8%80%85%E9%96%A2%E4%BF%82.csv
+    csv: https://opendata.pref.aomori.lg.jp/dataset/1531/resource/12403/02_20201123_%E9%99%BD%E6%80%A7%E6%82%A3%E8%80%85%E9%96%A2%E4%BF%82.csv
     column: 5
     age_column: 8
     date: '%Y年%-m月%-d日'
