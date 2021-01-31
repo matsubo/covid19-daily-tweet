@@ -11,7 +11,7 @@ require_relative 'wordpress'
 # require 'yaml'
 # prefecture = 'tokyo'
 # account = YAML.load_file('settings.yaml')['accounts'][prefecture]
-# CovidTweetProcess.new(prefecture, account).check_and_tweet
+# CovidTweetProcess.new(prefecture, account).check_and_publish
 #
 # ````
 class CovidTweetProcess
@@ -52,7 +52,7 @@ class CovidTweetProcess
       end
 
       begin
-        result = check_and_tweet
+        result = check_and_publish
       rescue StandardError => e
         log(e, level: :error)
       end
@@ -67,7 +67,7 @@ class CovidTweetProcess
   #
   # @return bool true if tweeted, false for nothing
   #
-  def check_and_tweet
+  def check_and_publish
     tempfile = nil
 
     Retriable.retriable do
