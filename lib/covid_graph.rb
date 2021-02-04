@@ -90,8 +90,11 @@ class CovidGraph
       next if row.length < 0
       next if row[actualy_col_index].nil? # next if empty column
 
-      date_string = row[actualy_col_index].gsub(/[月日]/, '/') # 群馬県対策
-      date = Date.parse(date_string) rescue next
+      date_string = row[actualy_col_index]
+      date_string.gsub!(/[年月]/, '/') # 日本語をparseできない
+      date_string.gsub!(/日$/, '')
+      date = Date.parse(date_string) rescue nil
+
       age = (row[age_column_index] || '不明').strip.tr('０-９ａ-ｚＡ-Ｚ', '0-9a-zA-Z').gsub(/[\r\n]/, '')
       age.gsub!('ー', '不明') # for okayama
       age.gsub!('\'-', '不明') # for tokyo
