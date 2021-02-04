@@ -24,4 +24,4 @@ group :test do
   gem 'webmock', require: false
 end
 
-gem 'faraday', '~> 1.1'
+gem 'faraday', '~> 1.3'
