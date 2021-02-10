@@ -6,12 +6,12 @@ RSpec.describe CovidTweetProcess do
   let(:prefecture) { 'tokyo' }
   let(:account) { YAML.load_file('settings.yaml')['accounts'][prefecture] }
 
-  describe '#check_and_tweet' do
+  describe '#check_andpublish' do
     it 'should not raise error' do
       covid_tweet = CovidTweetProcess.new(prefecture, account)
       expect do
         VCR.use_cassette('no_tweet_csv_download') do
-          covid_tweet.check_and_tweet
+          covid_tweet.check_and_publish
         end
       end.not_to raise_error
     end

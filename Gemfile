@@ -12,6 +12,7 @@ gem 'twitter'
 gem 'yaml'
 
 group :development do
+  gem 'byebug'
   gem 'pry-byebug', require: false
   gem 'rspec', require: false
   gem 'rubocop', require: false

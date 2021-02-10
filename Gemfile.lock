@@ -102,7 +102,7 @@ GEM
     simplecov-html (0.12.3)
     thread (0.2.2)
     thread_safe (0.3.6)
-    timecop (0.9.2)
+    timecop (0.9.3)
     twitter (7.0.0)
       addressable (~> 2.3)
       buftok (~> 0.2.0)
@@ -125,7 +125,7 @@ GEM
       addressable (>= 2.3.6)
       crack (>= 0.3.2)
       hashdiff (>= 0.4.0, < 2.0.0)
-    yaml (0.1.0)
+    yaml (0.1.1)
     zeitwerk (2.4.1)
 
 PLATFORMS
@@ -133,6 +133,7 @@ PLATFORMS
 
 DEPENDENCIES
   activesupport
+  byebug
   csv
   faraday (~> 1.1)
   gruff
@@ -149,4 +150,4 @@ DEPENDENCIES
   yaml
 
 BUNDLED WITH
-   2.1.4
+   2.2.3
