@@ -113,14 +113,14 @@ accounts:
     encoding: 'BOM|UTF-8'
   okayama:
     prefecture_ja: 岡山県
-    csv: http://www.okayama-opendata.jp/ckan/dataset/e6b3c1d2-2f1f-4735-b36e-e45d36d94761/resource/c6503ebc-b2e9-414c-aae7-7374f4801e21/download/kansenshashousaijouhou0420.csv
+    csv: http://www.okayama-opendata.jp/ckan/dataset/e6b3c1d2-2f1f-4735-b36e-e45d36d94761/resource/d021c012-297e-4ea9-bffa-cf55741884d1/download/kansenshashousaijouhou.csv
     column: 4
     age_column: 7
     date: '%-m月%-d日' # Year is not existed so this will not work after 2021.
     encoding: 'Shift_JIS:UTF-8'
   ehime:
     prefecture_ja: 愛媛県
-    csv: https://www.pref.ehime.jp/opendata-catalog/dataset/2174/resource/7057/380008_ehime_covid19_patients.csv
+    csv: https://www.pref.ehime.jp/opendata-catalog/dataset/2174/resource/7073/380008_ehime_covid19_patients.csv
     column: 5
     age_column: 9
     date: '%Y-%m-%d'
@@ -141,7 +141,7 @@ accounts:
     encoding: 'BOM|UTF-8'
   kumamoto:
     prefecture_ja: 熊本県
-    csv: "https://www.pref.kumamoto.jp/common/UploadFileOutput.ashx?c_id=3&id=22038&sub_id=257&flid=258951"
+    csv: "https://www.pref.kumamoto.jp/uploaded/attachment/137412.csv"
     column: 5
     age_column: 8
     date: '%Y-%m-%d'
