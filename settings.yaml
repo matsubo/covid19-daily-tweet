@@ -8,7 +8,7 @@ accounts:
     encoding: 'Shift_JIS:UTF-8'
   aomori:
     prefecture_ja: 青森県
-    csv: https://opendata.pref.aomori.lg.jp/dataset/1531/resource/12973/02_20210204_%E9%99%BD%E6%80%A7%E6%82%A3%E8%80%85%E9%96%A2%E4%BF%82.csv
+    csv: https://opendata.pref.aomori.lg.jp/dataset/1531/resource/13751/02_20210409_%E9%99%BD%E6%80%A7%E6%82%A3%E8%80%85%E9%96%A2%E4%BF%82.csv
     column: 5
     age_column: 8
     date: '%Y年%-m月%-d日'
@@ -46,7 +46,7 @@ accounts:
     csv: http://stopcovid19.pref.gunma.jp/csv/01kanja.csv
     column: 2
     age_column: 5
-    date: '%-m月%-d日' # Year is not existed so this will not work after 2021.
+    date: '%Y年%-m月%-d日'
     encoding: 'BOM|UTF-8'
   saitama:
     prefecture_ja: 埼玉県
@@ -103,7 +103,7 @@ accounts:
     column: 5
     age_column: 7
     date: '%Y/%-m/%-d'
-    encoding: 'BOM|UTF-8'
+    encoding: 'Shift_JIS:UTF-8'
   tokushima:
     prefecture_ja: 徳島県
     csv: https://ouropendata.jp/dataset/2192/resource/6170/%E9%99%BD%E6%80%A7%E6%82%A3%E8%80%85%E5%B1%9E%E6%80%A7.csv
