@@ -66,7 +66,7 @@ class CovidGraph
     labels.each do |key, date|
       labels[key] = if @base_date.to_date == date
                       date.strftime('%-m/%-d')
-                    elsif !(index == 0 || index == (labels.count - 1) || index % 25 == 0) || @base_date.to_date - 35 < date
+                    elsif !(index == 0 || index == (labels.count - 1) || index % 25 == 0) || @base_date.to_date - 65 < date
                       ''
                     else
                       date.strftime('%-m/%-d')

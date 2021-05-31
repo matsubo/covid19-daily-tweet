@@ -50,7 +50,7 @@ accounts:
     encoding: 'BOM|UTF-8'
   saitama:
     prefecture_ja: 埼玉県
-    csv: https://opendata.pref.saitama.lg.jp/data/dataset/c3a8db28-b943-4fcc-82ec-b7febd460bec/resource/530edfd2-462e-449b-9b86-cc91d3daed08/download/jokyo20201202.csv
+    csv: https://opendata.pref.saitama.lg.jp/data/dataset/c3a8db28-b943-4fcc-82ec-b7febd460bec/resource/434f2904-10af-4d72-9769-0aa4be6b3a84/download/jokyo20210531.csv
     column: 2
     age_column: 3
     date: '%Y/%-m/%-d'
