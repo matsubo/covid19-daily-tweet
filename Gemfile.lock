@@ -39,7 +39,7 @@ GEM
     ffi-compiler (1.0.1)
       ffi (>= 1.0.0)
       rake
-    gruff (0.13.0)
+    gruff (0.14.0)
       histogram
       rmagick
     hashdiff (1.0.1)
