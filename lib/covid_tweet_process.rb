@@ -166,6 +166,7 @@ class CovidTweetProcess
 
   def twitter
     twitter_yaml = YAML.load_file('twitter.yaml')
+    raise 'twitter setting is empty' unless twitter_yaml
     twitter_config = twitter_yaml[@prefecture]
 
     raise 'twitter setting is not found' unless twitter_config

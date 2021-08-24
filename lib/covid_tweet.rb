@@ -12,6 +12,7 @@ class CovidTweet
     yaml['accounts'].each do |key, account|
       threads << Thread.new do
         CovidTweetProcess.new(key, account).daemon
+        sleep 0.5 # to avoid graph lib is not thread safe.
       end
     end
 
