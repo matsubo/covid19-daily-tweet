@@ -1,21 +1,21 @@
 accounts:
   hokkaido:
     prefecture_ja: 北海道
-    csv: https://www.harp.lg.jp/opendata/dataset/1369/resource/3132/010006_hokkaido_covid19_patients.csv
+    csv: https://www.harp.lg.jp/opendata/dataset/1369/resource/2828/patients.csv
     column: 5
     age_column: 8
-    date: '%Y-%m-%d'
-    encoding: 'Shift_JIS:UTF-8'
+    date: '%Y-%m-%dT00:00'
+    encoding: 'CP932:UTF-8'
   aomori:
     prefecture_ja: 青森県
-    csv: https://opendata.pref.aomori.lg.jp/dataset/1531/resource/13751/02_20210409_%E9%99%BD%E6%80%A7%E6%82%A3%E8%80%85%E9%96%A2%E4%BF%82.csv
+    csv: https://opendata.pref.aomori.lg.jp/dataset/1531/resource/14815/02_20210827_%E9%99%BD%E6%80%A7%E6%82%A3%E8%80%85%E9%96%A2%E4%BF%82.csv
     column: 5
     age_column: 8
     date: '%Y年%-m月%-d日'
     encoding: 'Shift_JIS:UTF-8'
   nagano:
     prefecture_ja: 長野県
-    csv: https://www.pref.nagano.lg.jp/hoken-shippei/kenko/kenko/kansensho/joho/documents/200000_nagano_covid19_patients.csv
+    csv: https://www.pref.nagano.lg.jp/hoken-shippei/kenko/kenko/kansensho/joho/documents/200000_nagano_covid19_patients1.csv
     column: 5
     age_column: 8
     date: '%Y/%-m/%-d'
@@ -36,7 +36,7 @@ accounts:
     encoding: 'BOM|UTF-8'
   yamagata:
     prefecture_ja: 山形県
-    csv: https://www.pref.yamagata.jp/documents/10045/060003_yamagata_covid19_patients_1112.csv
+    csv: https://www.pref.yamagata.jp/documents/10045/060003_yamagata_covid19_patients_0826.csv
     column: 4
     age_column: 7
     date: '%Y/%-m/%-d'
