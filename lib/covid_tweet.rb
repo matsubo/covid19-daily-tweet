@@ -8,11 +8,11 @@ class CovidTweet
     # 設定を読み込む
     yaml = YAML.load_file('settings.yaml')
 
+    mutex = Mutex.new
     threads = []
     yaml['accounts'].each do |key, account|
       threads << Thread.new do
-        CovidTweetProcess.new(key, account).daemon
-        sleep 0.5 # to avoid graph lib is not thread safe.
+        CovidTweetProcess.new(key, account, nil, mutex).daemon
       end
     end
 

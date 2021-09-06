@@ -26,11 +26,12 @@ class CovidTweetProcess
   # Time of the day to start crawling
   HOURS_TO_START = 14
 
-  def initialize(prefecture, account, base_date = nil)
+  def initialize(prefecture, account, base_date = nil, mutex = Mutex.new)
     @prefecture = prefecture
     @account = account
     @logger = Logger.new(($stdout unless ENV['TEST']))
     @specified_base_date = base_date
+    @mutex = mutex
   end
 
   def base_date
@@ -91,7 +92,10 @@ class CovidTweetProcess
 
     log(message)
 
-    file = CovidGraph.new(tempfile, @account, base_date).create
+    file = nil
+    @mutex.synchronize do
+      file = CovidGraph.new(tempfile, @account, base_date).create
+    end
 
     begin
       log('posting to wordpress...')
@@ -101,7 +105,6 @@ class CovidTweetProcess
     end
 
     begin
-      log('tweeting...')
       twitter.update_with_media(message, file)
     rescue StandardError => e
       log(e)
@@ -167,6 +170,7 @@ class CovidTweetProcess
   def twitter
     twitter_yaml = YAML.load_file('twitter.yaml')
     raise 'twitter setting is empty' unless twitter_yaml
+
     twitter_config = twitter_yaml[@prefecture]
 
     raise 'twitter setting is not found' unless twitter_config
