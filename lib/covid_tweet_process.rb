@@ -69,6 +69,7 @@ class CovidTweetProcess
   # @return bool true if tweeted, false for nothing
   #
   def check_and_publish
+
     tempfile = nil
 
     Retriable.retriable do
@@ -101,13 +102,14 @@ class CovidTweetProcess
       log('posting to wordpress...')
       Wordpress.new(@prefecture, base_date).post(message, file)
     rescue StandardError => e
-      log(e)
+      log(e, level: :error)
     end
 
     begin
+      log('tweeting...')
       twitter.update_with_media(message, file)
     rescue StandardError => e
-      log(e)
+      log(e, level: :error)
     end
 
     FileUtils.chmod('a+r', tempfile)
