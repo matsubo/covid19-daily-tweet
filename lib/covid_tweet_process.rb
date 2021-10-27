@@ -70,6 +70,11 @@ class CovidTweetProcess
   #
   def check_and_publish
 
+    if File.exist?(archive_file)
+      log('Finishing process due to the file exists.')
+      return
+    end
+
     tempfile = nil
 
     Retriable.retriable do
