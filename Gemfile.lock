@@ -16,13 +16,13 @@ GEM
     concurrent-ruby (1.1.9)
     crack (0.4.5)
       rexml
-    csv (3.2.0)
+    csv (3.2.1)
     diff-lcs (1.4.4)
     docile (1.4.0)
     domain_name (0.5.20190701)
       unf (>= 0.0.5, < 1.0.0)
     equalizer (0.0.11)
-    faraday (1.7.1)
+    faraday (1.8.0)
       faraday-em_http (~> 1.0)
       faraday-em_synchrony (~> 1.0)
       faraday-excon (~> 1.1)
@@ -69,7 +69,7 @@ GEM
     minitest (5.14.4)
     multipart-post (2.1.1)
     naught (1.1.0)
-    parallel (1.20.1)
+    parallel (1.21.0)
     parser (3.0.2.0)
       ast (~> 2.4.1)
     pry (0.13.1)
@@ -84,7 +84,7 @@ GEM
     regexp_parser (2.1.1)
     retriable (3.1.2)
     rexml (3.2.5)
-    rmagick (4.2.2)
+    rmagick (4.2.3)
     rspec (3.10.0)
       rspec-core (~> 3.10.0)
       rspec-expectations (~> 3.10.0)
@@ -98,16 +98,16 @@ GEM
       diff-lcs (>= 1.2.0, < 2.0)
       rspec-support (~> 3.10.0)
     rspec-support (3.10.2)
-    rubocop (1.20.0)
+    rubocop (1.22.2)
       parallel (~> 1.10)
       parser (>= 3.0.0.0)
       rainbow (>= 2.2.2, < 4.0)
       regexp_parser (>= 1.8, < 3.0)
       rexml
-      rubocop-ast (>= 1.9.1, < 2.0)
+      rubocop-ast (>= 1.12.0, < 2.0)
       ruby-progressbar (~> 1.7)
       unicode-display_width (>= 1.4.0, < 3.0)
-    rubocop-ast (1.11.0)
+    rubocop-ast (1.12.0)
       parser (>= 3.0.1.1)
     ruby-progressbar (1.11.0)
     ruby2_keywords (0.0.5)
@@ -136,15 +136,15 @@ GEM
       concurrent-ruby (~> 1.0)
     unf (0.1.4)
       unf_ext
-    unf_ext (0.0.7.7)
-    unicode-display_width (2.0.0)
+    unf_ext (0.0.8)
+    unicode-display_width (2.1.0)
     vcr (6.0.0)
     webmock (3.14.0)
       addressable (>= 2.8.0)
       crack (>= 0.3.2)
       hashdiff (>= 0.4.0, < 2.0.0)
-    yaml (0.1.1)
-    zeitwerk (2.4.2)
+    yaml (0.2.0)
+    zeitwerk (2.5.1)
 
 PLATFORMS
   ruby
@@ -168,4 +168,4 @@ DEPENDENCIES
   yaml
 
 BUNDLED WITH
-   2.2.15
+   2.2.22
