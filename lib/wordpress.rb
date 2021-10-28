@@ -87,6 +87,10 @@ class Wordpress
 
     raise 'post failed: ' + JSON.parse(response.body).to_s unless response.status == 201
 
-    @logger.info(JSON.parse(response.body)['guid']['rendered'])
+    response_hash = JSON.parse(response.body)
+
+    @logger.info(response_hash['link'])
+
+    return response_hash
   end
 end

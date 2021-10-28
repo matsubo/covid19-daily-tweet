@@ -26,12 +26,13 @@ class CovidTweetProcess
   # Time of the day to start crawling
   HOURS_TO_START = 14
 
-  def initialize(prefecture, account, base_date = nil, mutex = Mutex.new)
+  def initialize(prefecture, account, base_date = nil, mutex = Mutex.new, force = false)
     @prefecture = prefecture
     @account = account
     @logger = Logger.new(($stdout unless ENV['TEST']))
     @specified_base_date = base_date
     @mutex = mutex
+    @force = force
   end
 
   def base_date
@@ -69,8 +70,7 @@ class CovidTweetProcess
   # @return bool true if tweeted, false for nothing
   #
   def check_and_publish
-
-    if File.exist?(archive_file)
+    if !@force && File.exist?(archive_file)
       log('Finishing process due to the file exists.')
       return
     end
@@ -105,14 +105,15 @@ class CovidTweetProcess
 
     begin
       log('posting to wordpress...')
-      Wordpress.new(@prefecture, base_date).post(message, file)
+      response_hash = Wordpress.new(@prefecture, base_date).post(message, file)
     rescue StandardError => e
       log(e, level: :error)
     end
 
     begin
       log('tweeting...')
-      twitter.update_with_media(message, file)
+      message = message + ' ' + response_hash['link']
+      twitter.update(message)
     rescue StandardError => e
       log(e, level: :error)
     end
