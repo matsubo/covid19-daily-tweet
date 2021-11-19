@@ -38,6 +38,12 @@ Daemon in background
 % docker-compose up -d 
 ```
 
+## Cron
+
+```
+15,30,45,59 9-14 * * * cd /home/matsu/ghq/github.com/matsubo/covid19-daily-tweet && docker-compose run --rm app bundle exec ruby today.rb > /tmp/covid19.log 2>&1
+```
+
 ## Test
 
 ```

@@ -13,7 +13,7 @@ logger = Logger.new(($stdout unless ENV['TEST']))
 
 yaml['accounts'].each do |key, account|
   begin
-    CovidTweetProcess.new(key, account, 0.day.ago).check_and_publish
+    CovidTweetProcess.new(key, account, 0.day.ago).check_and_publish rescue nil
   rescue => e
     logger.error(key)
     logger.error(e)
