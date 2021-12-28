@@ -91,6 +91,6 @@ class Wordpress
 
     @logger.info(response_hash['link'])
 
-    return response_hash
+    response_hash
   end
 end

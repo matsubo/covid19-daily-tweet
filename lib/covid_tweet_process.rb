@@ -170,8 +170,8 @@ class CovidTweetProcess
     end
 
     {
-      base_day_count: base_day_count,
-      prev_day_count: prev_day_count
+      base_day_count:,
+      prev_day_count:
     }
   end
 
