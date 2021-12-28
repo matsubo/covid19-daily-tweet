@@ -26,7 +26,7 @@ class CovidTweetProcess
   # Time of the day to start crawling
   HOURS_TO_START = 14
 
-  def initialize(prefecture, account, base_date = nil, mutex = Mutex.new, force = false)
+  def initialize(prefecture, account, base_date = nil, mutex = Mutex.new, force: false)
     @prefecture = prefecture
     @account = account
     @logger = Logger.new(($stdout unless ENV['TEST']))
