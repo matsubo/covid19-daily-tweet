@@ -10,6 +10,7 @@ gem 'retriable'
 gem 'thread'
 gem 'twitter'
 gem 'yaml'
+gem 'faraday'
 
 group :development do
   gem 'byebug'
@@ -24,4 +25,3 @@ group :test do
   gem 'webmock', require: false
 end
 
-gem 'faraday', '~> 1.3'
