@@ -7,7 +7,6 @@ source 'https://rubygems.org'
 # gem "rails"
 gem 'activesupport'
 gem 'csv'
-gem 'faraday'
 gem 'gruff'
 gem 'retriable'
 gem 'thread'
@@ -28,4 +27,3 @@ group :test do
 end
 
 gem 'faraday', '~> 1.3'
-
