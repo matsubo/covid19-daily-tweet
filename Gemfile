@@ -5,12 +5,12 @@ source 'https://rubygems.org'
 # gem "rails"
 gem 'activesupport'
 gem 'csv'
+gem 'faraday'
 gem 'gruff'
 gem 'retriable'
 gem 'thread'
 gem 'twitter'
 gem 'yaml'
-gem 'faraday'
 
 group :development do
   gem 'byebug'
@@ -24,4 +24,3 @@ group :test do
   gem 'vcr', require: false
   gem 'webmock', require: false
 end
-
