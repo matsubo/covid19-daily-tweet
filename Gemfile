@@ -26,3 +26,6 @@ group :test do
   gem 'vcr', require: false
   gem 'webmock', require: false
 end
+
+gem 'faraday', '~> 1.3'
+
