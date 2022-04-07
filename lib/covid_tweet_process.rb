@@ -1,4 +1,4 @@
-# frozen_string_literal: true
+# frozen_string_literal: false
 
 require_relative 'covid_graph'
 require_relative 'wordpress'
@@ -131,13 +131,21 @@ class CovidTweetProcess
   #
   # @return File
   #
-  def download(url)
-    log("downloading file: #{url}")
+  def download(urls)
 
     tempfile = Tempfile.create
 
     require 'open-uri'
-    File.write tempfile, Faraday.get(url).body
+
+    body = ''
+
+    urls.each do |url|
+      log("downloading file: #{url}")
+      body << Faraday.get(url).body
+    end
+
+
+    File.write(tempfile, body)
 
     tempfile
   end

@@ -3,7 +3,7 @@
 require_relative '../lib/covid_tweet_process'
 
 RSpec.describe CovidTweetProcess do
-  let(:prefecture) { 'tokyo' }
+  let(:prefecture) { 'kanagawa' }
   let(:account) { YAML.load_file('settings.yaml')['accounts'][prefecture] }
 
   describe '#check_andpublish' do
@@ -18,12 +18,12 @@ RSpec.describe CovidTweetProcess do
   end
 
   describe '#download' do
-    let(:url) { 'https://stopcovid19.metro.tokyo.lg.jp/data/130001_tokyo_covid19_patients.csv' }
+    let(:urls) { %w(https://stopcovid19.metro.tokyo.lg.jp/data/130001_tokyo_covid19_patients.csv) }
     it 'should not raise error'  do
       covid_tweet = CovidTweetProcess.new(prefecture, account)
       expect do
         VCR.use_cassette('no_tweet_csv_download') do
-          covid_tweet.send(:download, url)
+          covid_tweet.send(:download, urls)
         end
       end.not_to raise_error
     end
