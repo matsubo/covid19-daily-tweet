@@ -119,7 +119,7 @@ class CovidTweetProcess
     end
 
     FileUtils.chmod('a+r', tempfile)
-    FileUtils.mv(tempfile, archive_file)
+    FileUtils.touch(archive_file)
 
     true
   end
