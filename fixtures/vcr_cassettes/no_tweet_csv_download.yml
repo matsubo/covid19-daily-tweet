@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: get
-    uri: https://stopcovid19.metro.tokyo.lg.jp/data/130001_tokyo_covid19_patients.csv
+    uri: https://www.pref.ehime.jp/opendata-catalog/dataset/2174/resource/7073/380008_ehime_covid19_patients.csv
     body:
       encoding: US-ASCII
       string: ''

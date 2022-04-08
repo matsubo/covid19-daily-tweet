@@ -21,7 +21,7 @@ class CovidTweetProcess
   require 'logger'
 
   # Data snapshot preserve directory
-  DOWNLOAD_DIR = 'downloads'
+  DOWNLOAD_DIR = 'downloads'.freeze
 
   # Time of the day to start crawling
   HOURS_TO_START = 14
@@ -132,7 +132,6 @@ class CovidTweetProcess
   # @return File
   #
   def download(urls)
-
     tempfile = Tempfile.create
 
     require 'open-uri'
@@ -143,7 +142,6 @@ class CovidTweetProcess
       log("downloading file: #{url}")
       body << Faraday.get(url).body
     end
-
 
     File.write(tempfile, body)
 
