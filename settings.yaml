@@ -69,6 +69,7 @@ accounts:
       - https://stopcovid19.metro.tokyo.lg.jp/data/130001_tokyo_covid19_patients_2020.csv
       - https://stopcovid19.metro.tokyo.lg.jp/data/130001_tokyo_covid19_patients_2021.csv
       - https://stopcovid19.metro.tokyo.lg.jp/data/130001_tokyo_covid19_patients_2022.csv
+      - https://stopcovid19.metro.tokyo.lg.jp/data/130001_tokyo_covid19_patients_2022-1.csv
     column: 5
     age_column: 9
     date: '%Y-%m-%d'
