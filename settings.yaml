@@ -2,7 +2,6 @@ accounts:
   hokkaido:
     prefecture_ja: 北海道
     csv:
-      - https://www.harp.lg.jp/opendata/dataset/1369/resource/2828/patients.csv
     column: 5
     age_column: 8
     date: '%Y-%m-%dT00:00'

@@ -75,6 +75,11 @@ class CovidTweetProcess
       return
     end
 
+    unless @account['csv']
+      log('URL is not defined.')
+      return
+    end
+
     tempfile = nil
 
     Retriable.retriable do
