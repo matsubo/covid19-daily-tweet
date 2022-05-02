@@ -48,9 +48,9 @@ GEM
     ffi-compiler (1.0.1)
       ffi (>= 1.0.0)
       rake
-    gruff (0.14.0)
+    gruff (0.16.0)
       histogram
-      rmagick
+      rmagick (>= 4.2)
     hashdiff (1.0.1)
     histogram (0.2.4.1)
     http (4.4.1)
