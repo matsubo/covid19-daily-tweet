@@ -76,6 +76,7 @@ accounts:
   kanagawa:
     prefecture_ja: 神奈川県
     csv:
+      - https://covid19.teraren.com/wp-content/uploads/2022/08/patient_20200116-20220331.csv
       - https://www.pref.kanagawa.jp/osirase/1369/data/csv/patient.csv
     column: 1
     age_column: 3
