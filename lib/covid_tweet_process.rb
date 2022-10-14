@@ -116,7 +116,6 @@ class CovidTweetProcess
     end
 
     begin
-      log('tweeting...')
       message = message + ' ' + response_hash['link']
       twitter.update(message)
     rescue StandardError => e
