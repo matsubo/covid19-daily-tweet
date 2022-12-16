@@ -3,6 +3,7 @@
 [![Ruby](https://github.com/matsubo/covid19-daily-tweet/workflows/Ruby/badge.svg)](https://github.com/matsubo/covid19-daily-tweet/actions)
 [![Discord Shield](https://discordapp.com/api/guilds/725542623594545233/widget.png?style=shield)](https://discord.gg/sSfEha)
 
+![image](https://user-images.githubusercontent.com/98103/208041488-bb6d114c-6678-449e-bad0-78b597910887.png)
 
 ## For Japanese 
 
@@ -57,8 +58,3 @@ Daemon in background
 
 <a href="https://www.buymeacoffee.com/matsubokkuri" target="_blank"><img src="https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png" alt="Buy Me A Coffee" style="height: 41px !important;width: 174px !important;box-shadow: 0px 3px 2px 0px rgba(190, 190, 190, 0.5) !important;-webkit-box-shadow: 0px 3px 2px 0px rgba(190, 190, 190, 0.5) !important;" ></a>
 
-
-
-## Screenshot
-
-![image](https://user-images.githubusercontent.com/98103/152500222-4caec5e8-e143-4b54-bc5a-5b404614944b.png)
