@@ -113,7 +113,7 @@ class CovidGraph
   # @return Array
   def get_categories(dataset)
     categories = []
-    dataset.each do |_date, hash|
+    dataset.each_value do |hash|
       categories = categories.concat(hash.keys).uniq
     end
 
@@ -159,7 +159,7 @@ class CovidGraph
       metric_data = []
       dates.each do |data|
         date = data[1]
-        metric_data << ((dataset[date][category] || 0) rescue 0)
+        metric_data << (dataset[date][category] || 0 rescue 0)
       end
       new_data << [category, metric_data]
     end

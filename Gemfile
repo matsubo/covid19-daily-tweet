@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-ruby '~> 3.1'
-
 source 'https://rubygems.org'
 
 # gem "rails"
@@ -18,6 +16,7 @@ group :development do
   gem 'pry-byebug'
   gem 'rspec', require: false
   gem 'rubocop', require: false
+  gem 'rubocop-rspec', require: false
 end
 group :test do
   gem 'simplecov', require: false

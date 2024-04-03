@@ -10,8 +10,8 @@ RSpec.describe CovidGraph do
   let(:account) { YAML.load_file('settings.yaml')['accounts'][prefecture] }
 
   describe '#create' do
-    it 'should not raise error' do
-      expect { CovidGraph.new(File.open('spec/fixture/tokyo.csv'), account).create }.not_to raise_error
+    it 'does not raise error' do
+      expect { described_class.new(File.open('spec/fixture/tokyo.csv'), account).create }.not_to raise_error
     end
   end
 end
