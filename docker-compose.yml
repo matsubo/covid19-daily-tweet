@@ -1,6 +1,6 @@
 services:
   app:
-    build: .
+    image: ruby:latest
     restart: always
     stdin_open: true
     tty: true
