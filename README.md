@@ -51,6 +51,10 @@ Daemon in background
 % docker-compose run -e TEST=true app bundle exec rspec
 ```
 
+## Inquiry
+
+https://discord.gg/RaTW47zu3H
+
 ## Contribution
 
 - By code, pull requests are welcomed.
