@@ -1,7 +1,7 @@
 GEM
   remote: https://rubygems.org/
   specs:
-    activesupport (7.0.2.3)
+    activesupport (7.0.7.1)
       concurrent-ruby (~> 1.0, >= 1.0.2)
       i18n (>= 1.6, < 2)
       minitest (>= 5.1)
@@ -12,7 +12,7 @@ GEM
     buftok (0.2.0)
     byebug (11.1.3)
     coderay (1.1.3)
-    concurrent-ruby (1.1.10)
+    concurrent-ruby (1.2.3)
     crack (0.4.5)
       rexml
     csv (3.2.6)
@@ -64,13 +64,13 @@ GEM
     http-parser (1.2.3)
       ffi-compiler (>= 1.0, < 2.0)
     http_parser.rb (0.6.0)
-    i18n (1.10.0)
+    i18n (1.14.4)
       concurrent-ruby (~> 1.0)
     json (2.6.3)
     memoizable (0.4.2)
       thread_safe (~> 0.3, >= 0.3.1)
     method_source (1.0.0)
-    minitest (5.15.0)
+    minitest (5.22.3)
     multipart-post (2.1.1)
     naught (1.1.0)
     parallel (1.22.1)
@@ -137,7 +137,7 @@ GEM
       multipart-post (~> 2.0)
       naught (~> 1.0)
       simple_oauth (~> 0.3.0)
-    tzinfo (2.0.4)
+    tzinfo (2.0.6)
       concurrent-ruby (~> 1.0)
     unf (0.1.4)
       unf_ext
