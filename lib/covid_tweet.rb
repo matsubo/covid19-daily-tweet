@@ -9,9 +9,8 @@ class CovidTweet
     yaml = YAML.load_file('settings.yaml')
 
     mutex = Mutex.new
-    threads = []
-    yaml['accounts'].each do |key, account|
-      threads << Thread.new do
+    threads = yaml['accounts'].map do |key, account|
+      Thread.new do
         CovidTweetProcess.new(key, account, nil, mutex).daemon
       end
     end
